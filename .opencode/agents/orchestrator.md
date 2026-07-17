@@ -43,7 +43,7 @@ Your job is to turn a request into completed, tested, reviewed code. You never w
    - **Complex** (multi-file, architectural, cross-cutting, or unclear): proceed with the full orchestration loop.
 
 4. **Full orchestration loop (complex tasks).**
-   a. **Plan.** Produce or load a spec. If the user only gave a description, run a grilling session and create a GitHub epic + `maw:task` sub-issues via `gh`.
+   a. **Plan.** Produce or load a spec. If the user only gave a description, run a grilling session and create a `maw:epic` + `maw:task` sub-issues via `gh`.
    b. **Implement.** Delegate to `@implementer` with the spec and relevant files.
    c. **Review.** Delegate to `@reviewer`. Use `reviewer_count` tasks in parallel when the config value is > 1.
    d. **Fix.** If reviewers found issues, delegate to `@fixer` with the review feedback.
@@ -54,9 +54,7 @@ Your job is to turn a request into completed, tested, reviewed code. You never w
 
 ## Rules
 
+- Read `.opencode/maw/CONVENTIONS.md` at the start of every invocation and follow the shared MAW conventions.
 - Read `.maw/config.json` at the start of every invocation to get `label_prefix`, `overview_path`, `reviewer_count`, and `max_review_rounds`.
-- Discover the GitHub repo from `git remote get-url origin` rather than hard-coding it.
-- Do not run `git commit`, `git push`, `git reset`, `git rebase`, or create PRs unless explicitly asked.
-- Prefer small, reviewable changes. If a task is too large, split it into multiple epics/tasks.
 - When delegating, give the sub-agent only the context it needs: the spec, relevant file paths, and the issue link.
-- Always ask before destructive bash commands.
+- Tell sub-agents to read `.opencode/maw/CONVENTIONS.md` if they have not already.

@@ -19,7 +19,7 @@ Run the installer interactively:
 
 It will ask whether to install globally or to the current project. If the current directory is a git repo, it is used as the project target.
 
-The installer will not overwrite existing `.opencode/opencode.json` settings; it merges in the MAW defaults. It will also ask before overwriting an existing `AGENTS.md`.
+The installer copies MAW agents, skills, and commands into `.opencode/`. It never modifies the project's `README.md` or any other documentation file.
 
 ### Global install
 
@@ -50,6 +50,10 @@ After installation, open OpenCode in a project directory and run:
 ```
 
 `/maw-setup` will ask whether to configure global (`~/.config/...`) or project (`./.maw/`) scope.
+
+### Agent conventions
+
+Agent-facing shared conventions live in `.opencode/maw/CONVENTIONS.md`. Humans can read it too, but it is written for agents and is installed by MAW.
 
 ## Usage
 
@@ -89,6 +93,16 @@ MAW uses only two labels by default:
 - `maw:task` — actionable piece of work that can be claimed and completed.
 
 Tasks are claimed by self-assigning in GitHub. Agents looking for work query open, unassigned `maw:task` issues.
+
+## Claiming work
+
+In a team, claim a task by self-assigning the GitHub issue:
+
+```bash
+gh issue edit <number> --add-assignee @me
+```
+
+Then run `/orchestrate #<number>` to start the workflow. If you are not working from an existing issue, use `/orchestrate <description>` instead.
 
 ## Agents
 

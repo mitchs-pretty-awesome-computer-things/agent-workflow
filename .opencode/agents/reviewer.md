@@ -22,7 +22,7 @@ Your only job is to find reasons the implementation might be wrong. Be exhaustiv
    - Bugs or incorrect behavior vs. the spec.
    - Missing edge cases or error handling.
    - Regressions in existing behavior.
-   - Violations of project conventions (read AGENTS.md if present).
+   - Violations of project conventions.
    - Security or performance issues.
    - Tests that are missing or insufficient.
 3. Output a clear list of issues. If nothing is wrong, say so explicitly.

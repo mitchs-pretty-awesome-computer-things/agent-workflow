@@ -155,7 +155,7 @@ if [[ "$SCOPE" == "project" ]]; then
   TARGET_DIR="$(cd "$TARGET_DIR" && pwd)"
 
   if ! git -C "$TARGET_DIR" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    echo "Warning: ${TARGET_DIR} is not a git repository. MAW will still install, but /maw-setup may need help discovering the GitHub repo." >&2
+    echo "Warning: ${TARGET_DIR} is not a git repository. MAW will still install, but /maw-setup may need help identifying the GitHub repo." >&2
   fi
 fi
 
@@ -163,12 +163,10 @@ if [[ "$SCOPE" == "global" ]]; then
   OPENCODE_DIR="${HOME}/.config/opencode"
   MAW_DIR="${HOME}/.config/maw"
   INSTALL_DIR="$OPENCODE_DIR"
-  AGENTS_ROOT="${HOME}"
 elif [[ "$SCOPE" == "project" ]]; then
   OPENCODE_DIR="${TARGET_DIR}/.opencode"
   MAW_DIR="${TARGET_DIR}/.maw"
   INSTALL_DIR="$TARGET_DIR"
-  AGENTS_ROOT="$TARGET_DIR"
 fi
 
 mkdir -p "$OPENCODE_DIR"/agents
@@ -187,56 +185,6 @@ install_file() {
   fi
 }
 
-merge_opencode_config() {
-  local template="$1"
-  local target="$2"
-
-  # Always copy opencode.json (never symlink) so user customizations stay local
-  if [[ ! -f "$target" ]]; then
-    cp "$template" "$target"
-    echo "Created ${target}"
-    return
-  fi
-
-  if command -v python3 >/dev/null 2>&1; then
-    python3 - "$template" "$target" <<'PY'
-import json, sys
-template_path, target_path = sys.argv[1], sys.argv[2]
-
-with open(template_path) as f:
-    template = json.load(f)
-
-with open(target_path) as f:
-    existing = json.load(f)
-
-# Merge template values only if missing in existing
-for key, value in template.items():
-    if key == '$schema':
-        existing.setdefault('$schema', value)
-    elif key == 'instructions':
-        existing.setdefault('instructions', [])
-        existing_instructions = existing['instructions']
-        for item in value:
-            if item not in existing_instructions:
-                existing_instructions.append(item)
-    elif key not in existing:
-        existing[key] = value
-
-with open(target_path, 'w') as f:
-    json.dump(existing, f, indent=2)
-    f.write('\n')
-PY
-    echo "Merged MAW settings into ${target}"
-  else
-    echo "Warning: ${target} already exists and python3 is not available to merge config. Skipping opencode.json update." >&2
-    echo "You may want to add these settings manually:" >&2
-    cat "$template" >&2
-  fi
-}
-
-# Install/merge OpenCode config
-merge_opencode_config "${SCRIPT_DIR}/.opencode/opencode.json" "${OPENCODE_DIR}/opencode.json"
-
 for agent in orchestrator solo implementer reviewer fixer tester explorer; do
   install_file "${SCRIPT_DIR}/.opencode/agents/${agent}.md" "${OPENCODE_DIR}/agents/${agent}.md"
 done
@@ -249,27 +197,15 @@ for command in maw-setup orchestrate; do
   install_file "${SCRIPT_DIR}/.opencode/commands/${command}.md" "${OPENCODE_DIR}/commands/${command}.md"
 done
 
+# Install MAW shared conventions
+install_file "${SCRIPT_DIR}/.opencode/maw/CONVENTIONS.md" "${OPENCODE_DIR}/maw/CONVENTIONS.md"
+
 # Install MAW config
 if [[ ! -f "${MAW_DIR}/config.json" ]]; then
   install_file "${SCRIPT_DIR}/.maw/config.json" "${MAW_DIR}/config.json"
   echo "Created ${MAW_DIR}/config.json"
 else
   echo "Skipped overwriting existing ${MAW_DIR}/config.json"
-fi
-
-# For project installs, also copy AGENTS.md to project root
-if [[ "$SCOPE" == "project" ]]; then
-  if [[ -f "${AGENTS_ROOT}/AGENTS.md" ]]; then
-    if confirm "AGENTS.md already exists in ${AGENTS_ROOT}. Overwrite?"; then
-      install_file "${SCRIPT_DIR}/AGENTS.md" "${AGENTS_ROOT}/AGENTS.md"
-      echo "Overwrote ${AGENTS_ROOT}/AGENTS.md"
-    else
-      echo "Skipped overwriting ${AGENTS_ROOT}/AGENTS.md"
-    fi
-  else
-    install_file "${SCRIPT_DIR}/AGENTS.md" "${AGENTS_ROOT}/AGENTS.md"
-    echo "Created ${AGENTS_ROOT}/AGENTS.md"
-  fi
 fi
 
 echo ""

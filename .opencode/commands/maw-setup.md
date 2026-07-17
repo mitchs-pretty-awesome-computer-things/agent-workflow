@@ -5,6 +5,8 @@ agent: orchestrator
 
 You are running the `/maw-setup` command for Mitch's Agent Workflow (MAW).
 
+Read `.opencode/maw/CONVENTIONS.md` and follow the shared MAW conventions.
+
 Your job is to guide the user through setup and write the configuration files. This command always runs from an OpenCode project session, but it can configure either global defaults or the current project.
 
 ## Steps
@@ -18,8 +20,7 @@ Your job is to guide the user through setup and write the configuration files. T
    - Verify `opencode` is installed and configured.
 
 3. **Discover the GitHub repo.**
-   - Run `git remote get-url origin` in the current project directory.
-   - Parse the owner/repo from the URL.
+   - Determine the project repo from the current directory's git remote.
    - If ambiguous or no remote, ask the user.
    - For global scope, this is used as the default repo to prefill; for project scope, it is the project repo.
 
@@ -48,7 +49,7 @@ Your job is to guide the user through setup and write the configuration files. T
    - Do not overwrite unrelated fields in existing config files; merge them.
 
 8. **Create labels.**
-   - For project scope, use the discovered GitHub repo.
+   - For project scope, use the project repo discovered in step 3.
    - For global scope, ask which repo to create labels in (or skip if the user only wants defaults).
    - Use `gh label create <prefix>:epic --color "#0366d6" --description "MAW epic"` if it does not exist.
    - Use `gh label create <prefix>:task --color "#0e8a16" --description "MAW task"` if it does not exist.

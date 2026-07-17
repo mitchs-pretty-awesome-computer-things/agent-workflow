@@ -24,8 +24,6 @@ Your job is to write code that satisfies a spec. You do not review your own work
 
 ## Rules
 
-- Make the smallest change that satisfies the spec.
-- Follow existing project conventions (style, naming, patterns).
 - Do not create issues, PRs, or epics.
 - Do not delegate to other agents.
 - If the spec is ambiguous, ask the orchestrator for clarification rather than guessing.

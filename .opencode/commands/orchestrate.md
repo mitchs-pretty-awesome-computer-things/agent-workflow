@@ -35,8 +35,7 @@ Turn this input into completed, tested, reviewed code.
 
 ## Rules
 
+- Read `.opencode/maw/CONVENTIONS.md` and follow the shared MAW conventions.
 - Read `.maw/config.json` for `label_prefix`, `overview_path`, `reviewer_count`, and `max_review_rounds`.
-- Discover the GitHub repo from `git remote get-url origin`.
 - Exit early if review and tests pass.
 - Stop after `max_review_rounds` and ask the human if the loop has not converged.
-- Do not commit, push, or create PRs unless explicitly asked.

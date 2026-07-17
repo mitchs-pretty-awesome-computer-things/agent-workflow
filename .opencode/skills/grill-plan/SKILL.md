@@ -26,13 +26,12 @@ Run a structured grilling interview to turn a vague idea into a concrete plan.
 
 After confirmation:
 
-1. Discover the GitHub repo from `git remote get-url origin`.
-2. Read `.maw/config.json` to get the `label_prefix`.
-3. Create an epic issue labeled `<prefix>:epic` with the plan summary in the body.
-4. Create sub-task issues labeled `<prefix>:task` linked to the epic.
+1. Read `.maw/config.json` to get the `label_prefix`.
+2. Create an epic issue on GitHub labeled `<prefix>:epic` with the plan summary in the body.
+3. Create sub-task issues labeled `<prefix>:task` linked to the epic.
    - Use the epic issue number in each task body (e.g., `Epic: #123`).
    - Do not assign anyone by default.
-5. Report the epic and task issue numbers back to the user.
+4. Report the epic and task issue numbers back to the user.
 
 ## Task sizing
 

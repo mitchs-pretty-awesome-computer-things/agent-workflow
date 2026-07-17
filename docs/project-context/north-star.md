@@ -77,7 +77,7 @@ Workflow-specific config lives in `.maw/config.json` (project) or `~/.config/maw
 }
 ```
 
-The GitHub repo is not stored in config. Agents discover it from `git remote get-url origin`.
+The GitHub repo is not stored in config. Agents determine it from the current project's git remote.
 
 ### Models
 
@@ -95,14 +95,14 @@ The full loop exits early if review and tests pass. It stops after `max_review_r
 ### Installer behavior
 
 - The installer can run interactively or with explicit flags (`--global`, `--project <path>`).
-- It copies agents, skills, and commands. It merges `opencode.json` rather than overwriting.
-- It asks before overwriting an existing `AGENTS.md`.
-- It supports symlink mode for development, but `opencode.json` is always copied (never symlinked) to protect local customizations.
+- It copies agents, skills, commands, and the shared `.opencode/maw/CONVENTIONS.md`.
+- It never modifies the project's `README.md` or other documentation files.
+- It supports symlink mode for development.
 
 ### Safety
 
 - MAW does not commit, push, or create PRs unless explicitly asked.
-- `subagent_depth` is set to 1.
+- `subagent_depth` is left at the opencode default of 1.
 - The orchestrator does not commandeer the default OpenCode agent; it is invoked via `/orchestrate` or `@orchestrator`.
 
 ## Project conventions
@@ -110,4 +110,4 @@ The full loop exits early if review and tests pass. It stops after `max_review_r
 - Keep changes minimal and focused.
 - Follow existing code style and patterns.
 - Add tests when the change affects behavior.
-- Update `AGENTS.md` and this document if the workflow or conventions change.
+- Update `.opencode/maw/CONVENTIONS.md` and this document if the workflow or conventions change.

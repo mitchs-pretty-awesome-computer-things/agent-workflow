@@ -39,8 +39,7 @@ Use when the orchestrator (or a human) gives you a task that is:
 
 ## Rules
 
+- Read `.opencode/maw/CONVENTIONS.md` at the start of every invocation and follow the shared MAW conventions.
 - Do not create GitHub epics, tasks, or PRs.
 - Do not delegate to other agents.
-- Keep changes minimal and focused.
 - If the task turns out to be larger than expected, stop and tell the orchestrator (or human) to use `/orchestrate` instead.
-- Ask before destructive bash commands.
