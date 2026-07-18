@@ -22,7 +22,7 @@ The installer will prompt you to choose **global** or **project** scope. If you 
 ### Install a specific version
 
 ```bash
-curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- --version v0.0.1
+curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- --version v0.1.0
 ```
 
 ### Global install

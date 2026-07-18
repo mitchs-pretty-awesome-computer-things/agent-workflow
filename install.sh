@@ -37,7 +37,7 @@ Examples:
     curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- -g
 
   Install a specific version into a project:
-    curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- -v v0.0.1 -p /path/to/project
+    curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- -v v0.1.0 -p /path/to/project
 
   Local development (from a clone):
     ./install.sh -l -p .
