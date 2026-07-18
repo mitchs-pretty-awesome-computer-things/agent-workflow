@@ -11,34 +11,44 @@ It combines:
 
 ## Installation
 
-Run the installer interactively:
+### Quick install (latest)
 
 ```bash
-./install.sh
+curl -fsSL https://maw.mpact.llc/install.sh | bash
 ```
 
-It will ask whether to install globally or to the current project. If the current directory is a git repo, it is used as the project target.
+The installer will prompt you to choose **global** or **project** scope. If you run it in a git repository, it will use that repository as the project target.
 
-The installer copies MAW agents, skills, and commands from `template/` into `.opencode/`. It never modifies the project's `README.md` or any other documentation file.
+### Install a specific version
+
+```bash
+curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- --version v1.0.0
+```
 
 ### Global install
 
 ```bash
-./install.sh --global
+curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- --global
 ```
 
 ### Project install
 
 ```bash
-./install.sh --project /path/to/project
+curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- --project /path/to/project
 ```
 
-If no path is given and the current directory is a git repo, it is used automatically.
+### Local install for development
 
-### Symlink for development
+If you are working on MAW itself and have a local clone, use `--local` so the installer copies from the `template/` directory next to the script instead of fetching from GitHub:
 
 ```bash
-./install.sh --global --symlink
+./install.sh --local --project .
+```
+
+To symlink files instead of copying (development only):
+
+```bash
+./install.sh --local --project . --symlink
 ```
 
 ### Next step
@@ -135,7 +145,7 @@ This repository is the MAW template. The distributable workflow files live in `t
 To use MAW while working on MAW itself, install it into this repo like any other project:
 
 ```bash
-./install.sh --project .
+./install.sh --local --project .
 ```
 
 Then run `/maw-setup` in OpenCode and configure it for this project. Your local `.opencode/` and `.maw/config.json` are ignored by git so they stay separate from the template.

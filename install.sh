@@ -3,36 +3,55 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Repository coordinates for remote installs
+REPO_OWNER="mitchs-pretty-awesome-computer-things"
+REPO_NAME="agent-workflow"
+
 # Default values
 SCOPE=""
 TARGET_DIR=""
 COPY_OR_SYMLINK="copy"
+VERSION="latest"
+LOCAL=false
 
 usage() {
   cat <<EOF
-Usage: install.sh [--global | --project <path>] [--symlink]
+Usage: install.sh [-g|--global] [-p|--project <path>] [-v|--version <version>] [-l|--local] [-s|--symlink] [-h|--help]
 
 Install Mitch's Agent Workflow (MAW) into OpenCode.
 
 Options:
-  --global          Install into ~/.config/opencode/ (global config)
-  --project <path>  Install into <path>/.opencode/ (project config)
-  --symlink         Symlink workflow files instead of copying
+  -g, --global        Install into ~/.config/opencode/ (global config)
+  -p, --project PATH  Install into <path>/.opencode/ (project config)
+  -v, --version VER   Install a specific MAW version (default: latest)
+  -l, --local         Use the local template/ directory instead of fetching from GitHub
+  -s, --symlink       Symlink workflow files instead of copying (only valid with --local)
+  -h, --help          Show this help message
 
 If no scope flag is passed, the script will prompt interactively.
 
 After installation, run /maw-setup inside OpenCode to configure models and labels.
+
+Examples:
+  Install latest globally:
+    curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- -g
+
+  Install a specific version into a project:
+    curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- -v v1.0.0 -p /path/to/project
+
+  Local development (from a clone):
+    ./install.sh -l -p .
 EOF
   exit 1
 }
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --global)
+    -g|--global)
       SCOPE="global"
       shift
       ;;
-    --project)
+    -p|--project)
       SCOPE="project"
       if [[ -z "${2:-}" ]]; then
         echo "Error: --project requires a path" >&2
@@ -41,7 +60,19 @@ while [[ $# -gt 0 ]]; do
       TARGET_DIR="$2"
       shift 2
       ;;
-    --symlink)
+    -v|--version)
+      if [[ -z "${2:-}" ]]; then
+        echo "Error: --version requires a value" >&2
+        usage
+      fi
+      VERSION="$2"
+      shift 2
+      ;;
+    -l|--local)
+      LOCAL=true
+      shift
+      ;;
+    -s|--symlink)
       COPY_OR_SYMLINK="symlink"
       shift
       ;;
@@ -54,6 +85,11 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+if [[ "$COPY_OR_SYMLINK" == "symlink" && "$LOCAL" != true ]]; then
+  echo "Error: -s/--symlink is only valid with -l/--local" >&2
+  exit 1
+fi
 
 # Interactive helpers
 is_interactive() {
@@ -116,6 +152,88 @@ confirm() {
   else
     return 1
   fi
+}
+
+# Resolve a URL to stdout using curl or wget
+fetch_url() {
+  local url="$1"
+  if command -v curl >/dev/null 2>&1; then
+    curl -fsSL "$url"
+  elif command -v wget >/dev/null 2>&1; then
+    wget -qO- "$url"
+  else
+    echo "Error: curl or wget is required for remote installs" >&2
+    exit 1
+  fi
+}
+
+# Resolve "latest" to the newest tag via the GitHub API
+resolve_latest_version() {
+  local api_url="https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/tags?per_page=1"
+  local response
+  response=$(fetch_url "$api_url") || {
+    echo "Error: failed to fetch latest version from ${api_url}" >&2
+    exit 1
+  }
+  local tag
+  tag=$(printf '%s\n' "$response" | grep -o '"name": "[^"]*"' | head -n1 | cut -d'"' -f4)
+  if [[ -z "$tag" ]]; then
+    echo "Error: could not determine latest version from GitHub API" >&2
+    exit 1
+  fi
+  echo "$tag"
+}
+
+# Download the template directory for the requested version
+fetch_remote_template() {
+  local version="$1"
+  local tag="$version"
+  if [[ "$version" == "latest" ]]; then
+    tag=$(resolve_latest_version)
+    echo "Resolved latest version: ${tag}"
+  fi
+
+  local tarball_url="https://github.com/${REPO_OWNER}/${REPO_NAME}/archive/refs/tags/${tag}.tar.gz"
+  local tmp_dir
+  tmp_dir=$(mktemp -d)
+  local tarball="${tmp_dir}/maw-${tag}.tar.gz"
+
+  echo "Fetching ${tarball_url}..."
+  if command -v curl >/dev/null 2>&1; then
+    curl -fsSL "$tarball_url" -o "$tarball" || {
+      echo "Error: failed to download ${tarball_url}" >&2
+      rm -rf "$tmp_dir"
+      exit 1
+    }
+  elif command -v wget >/dev/null 2>&1; then
+    wget -q "$tarball_url" -O "$tarball" || {
+      echo "Error: failed to download ${tarball_url}" >&2
+      rm -rf "$tmp_dir"
+      exit 1
+    }
+  else
+    echo "Error: curl or wget is required for remote installs" >&2
+    rm -rf "$tmp_dir"
+    exit 1
+  fi
+
+  tar -xzf "$tarball" -C "$tmp_dir"
+  local extracted_dir
+  extracted_dir=$(find "$tmp_dir" -maxdepth 1 -type d -name "${REPO_NAME}-*" | head -n1)
+  if [[ -z "$extracted_dir" ]]; then
+    echo "Error: could not find extracted directory in tarball" >&2
+    rm -rf "$tmp_dir"
+    exit 1
+  fi
+
+  local template_dir="${extracted_dir}/template"
+  if [[ ! -d "$template_dir" ]]; then
+    echo "Error: tarball does not contain a template directory" >&2
+    rm -rf "$tmp_dir"
+    exit 1
+  fi
+
+  echo "$template_dir"
 }
 
 # Interactive scope selection if not provided
@@ -185,7 +303,17 @@ install_file() {
   fi
 }
 
-TEMPLATE_DIR="${SCRIPT_DIR}/template"
+# Determine the template directory
+if [[ "$LOCAL" == true ]]; then
+  TEMPLATE_DIR="${SCRIPT_DIR}/template"
+  if [[ ! -d "$TEMPLATE_DIR" ]]; then
+    echo "Error: local template directory not found at ${TEMPLATE_DIR}" >&2
+    exit 1
+  fi
+else
+  TEMPLATE_DIR=$(fetch_remote_template "$VERSION")
+  CLEANUP_TEMPLATE_DIR="$TEMPLATE_DIR"
+fi
 
 for agent in orchestrator solo implementer reviewer fixer tester explorer; do
   install_file "${TEMPLATE_DIR}/.opencode/agents/${agent}.md" "${OPENCODE_DIR}/agents/${agent}.md"
@@ -210,8 +338,16 @@ else
   echo "Skipped overwriting existing ${MAW_DIR}/config.json"
 fi
 
+# Clean up remote template download if needed
+if [[ -n "${CLEANUP_TEMPLATE_DIR:-}" ]]; then
+  rm -rf "$(dirname "$CLEANUP_TEMPLATE_DIR")"
+fi
+
 echo ""
 echo "MAW installed successfully (${SCOPE})."
+if [[ "$LOCAL" != true ]]; then
+  echo "Version: ${VERSION}"
+fi
 echo ""
 echo "Next step: open OpenCode in a project directory and run:"
 echo "  /maw-setup"
