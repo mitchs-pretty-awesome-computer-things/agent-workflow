@@ -81,7 +81,7 @@ The GitHub repo is not stored in config. Agents determine it from the current pr
 
 ### Models
 
-Default models are defined in the agent files, but `/maw-setup` runs `opencode models` and uses an AI agent to recommend per-agent models based on the user's actual available models. Selected models are written as overrides into `opencode.json` under the `agent` key.
+Agent templates intentionally omit the `model` field. In OpenCode, an agent without a `model` uses the user's default model. `/maw-setup` runs `opencode models` and recommends per-agent models based on the user's available models; selected models are written as overrides into `opencode.json` under the `agent` key. This lets a global MAW install fall back to the default model while still allowing per-project overrides.
 
 ### Short vs. full loop
 

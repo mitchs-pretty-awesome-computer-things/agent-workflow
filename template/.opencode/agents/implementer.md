@@ -1,7 +1,6 @@
 ---
 description: Writes implementation code from a spec. Delegated by the orchestrator.
 mode: subagent
-model: anthropic/claude-sonnet-4-6
 permission:
   read: allow
   edit: allow

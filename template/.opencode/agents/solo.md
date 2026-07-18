@@ -1,7 +1,6 @@
 ---
 description: Short-loop agent for simple, localized tasks. Used internally by the orchestrator; power users can invoke with @solo.
 mode: subagent
-model: anthropic/claude-sonnet-4-6
 permission:
   read: allow
   edit: allow

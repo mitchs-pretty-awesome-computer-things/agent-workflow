@@ -1,7 +1,6 @@
 ---
 description: Runs the project test suite and reports results. Delegated by the orchestrator.
 mode: subagent
-model: anthropic/claude-haiku-4-5
 permission:
   read: allow
   list: allow

@@ -1,7 +1,6 @@
 ---
 description: Workflow orchestrator. Use when the user wants to start, plan, or delegate a non-trivial piece of work via /orchestrate.
 mode: subagent
-model: anthropic/claude-opus-4-6
 permission:
   read: allow
   edit: allow

@@ -1,7 +1,6 @@
 ---
 description: Research and explore the codebase to answer focused questions. Delegated by the orchestrator.
 mode: subagent
-model: anthropic/claude-haiku-4-5
 permission:
   read: allow
   list: allow

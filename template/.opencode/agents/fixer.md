@@ -1,7 +1,6 @@
 ---
 description: Applies review feedback. Delegated by the orchestrator after review.
 mode: subagent
-model: anthropic/claude-sonnet-4-6
 permission:
   read: allow
   edit: allow

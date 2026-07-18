@@ -1,5 +1,5 @@
 ---
-description: Set up or reconfigure Mitch's Agent Workflow (MAW). Choose global or project scope, then configure models, GitHub labels, and workflow settings.
+description: Set up or reconfigure Mitch's Agent Workflow (MAW). Choose global or project scope, then configure per-agent models, GitHub labels, and workflow settings. MAW agent files intentionally omit `model`, so they use the user's default model unless overridden here.
 agent: orchestrator
 ---
 
@@ -44,9 +44,10 @@ Your job is to guide the user through setup and write the configuration files. T
    - Confirm reviewer count (default 1) and max review rounds (default 3).
 
 7. **Write config.**
-   - **Global scope:** write `~/.config/maw/config.json` and update `~/.config/opencode/opencode.json` with an `agent` block overriding default models for MAW agents.
-   - **Project scope:** write `.maw/config.json` and update `.opencode/opencode.json` with an `agent` block overriding default models for MAW agents.
+   - **Global scope:** write `~/.config/maw/config.json` and update `~/.config/opencode/opencode.json` with an `agent` block overriding the default model for each MAW agent.
+   - **Project scope:** write `.maw/config.json` and update `.opencode/opencode.json` with an `agent` block overriding the default model for each MAW agent.
    - Do not overwrite unrelated fields in existing config files; merge them.
+   - Because MAW agent files omit `model`, any agent not listed in the override block will use the user's default model.
 
 8. **Create labels.**
    - For project scope, use the project repo discovered in step 3.
