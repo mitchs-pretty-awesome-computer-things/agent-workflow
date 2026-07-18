@@ -95,7 +95,7 @@ The full loop exits early if review and tests pass. It stops after `max_review_r
 ### Installer behavior
 
 - The installer can run interactively or with explicit flags (`--global`, `--project <path>`).
-- It copies agents, skills, commands, and the shared `.opencode/maw/CONVENTIONS.md`.
+- It copies agents, skills, commands, and the shared `.opencode/maw/CONVENTIONS.md` from `template/`.
 - It never modifies the project's `README.md` or other documentation files.
 - It supports symlink mode for development.
 
@@ -110,4 +110,4 @@ The full loop exits early if review and tests pass. It stops after `max_review_r
 - Keep changes minimal and focused.
 - Follow existing code style and patterns.
 - Add tests when the change affects behavior.
-- Update `.opencode/maw/CONVENTIONS.md` and this document if the workflow or conventions change.
+- Update `template/.opencode/maw/CONVENTIONS.md` and this document if the workflow or conventions change.

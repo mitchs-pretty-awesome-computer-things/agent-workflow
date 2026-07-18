@@ -19,7 +19,7 @@ Run the installer interactively:
 
 It will ask whether to install globally or to the current project. If the current directory is a git repo, it is used as the project target.
 
-The installer copies MAW agents, skills, and commands into `.opencode/`. It never modifies the project's `README.md` or any other documentation file.
+The installer copies MAW agents, skills, and commands from `template/` into `.opencode/`. It never modifies the project's `README.md` or any other documentation file.
 
 ### Global install
 
@@ -124,3 +124,18 @@ Then run `/orchestrate #<number>` to start the workflow. If you are not working 
 ## Restarting OpenCode
 
 OpenCode loads config at startup and does not hot-reload. After running `/maw-setup` or changing agent files, restart OpenCode.
+
+## Developing MAW
+
+This repository is the MAW template. The distributable workflow files live in `template/`:
+
+- `template/.opencode/` — agents, commands, skills, and shared conventions.
+- `template/.maw/config.json` — default configuration installed by `install.sh`.
+
+To use MAW while working on MAW itself, install it into this repo like any other project:
+
+```bash
+./install.sh --project .
+```
+
+Then run `/maw-setup` in OpenCode and configure it for this project. Your local `.opencode/` and `.maw/config.json` are ignored by git so they stay separate from the template.

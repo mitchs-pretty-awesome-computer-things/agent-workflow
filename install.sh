@@ -185,24 +185,26 @@ install_file() {
   fi
 }
 
+TEMPLATE_DIR="${SCRIPT_DIR}/template"
+
 for agent in orchestrator solo implementer reviewer fixer tester explorer; do
-  install_file "${SCRIPT_DIR}/.opencode/agents/${agent}.md" "${OPENCODE_DIR}/agents/${agent}.md"
+  install_file "${TEMPLATE_DIR}/.opencode/agents/${agent}.md" "${OPENCODE_DIR}/agents/${agent}.md"
 done
 
 for skill in grill-explore grill-plan; do
-  install_file "${SCRIPT_DIR}/.opencode/skills/${skill}/SKILL.md" "${OPENCODE_DIR}/skills/${skill}/SKILL.md"
+  install_file "${TEMPLATE_DIR}/.opencode/skills/${skill}/SKILL.md" "${OPENCODE_DIR}/skills/${skill}/SKILL.md"
 done
 
 for command in maw-setup orchestrate; do
-  install_file "${SCRIPT_DIR}/.opencode/commands/${command}.md" "${OPENCODE_DIR}/commands/${command}.md"
+  install_file "${TEMPLATE_DIR}/.opencode/commands/${command}.md" "${OPENCODE_DIR}/commands/${command}.md"
 done
 
 # Install MAW shared conventions
-install_file "${SCRIPT_DIR}/.opencode/maw/CONVENTIONS.md" "${OPENCODE_DIR}/maw/CONVENTIONS.md"
+install_file "${TEMPLATE_DIR}/.opencode/maw/CONVENTIONS.md" "${OPENCODE_DIR}/maw/CONVENTIONS.md"
 
 # Install MAW config
 if [[ ! -f "${MAW_DIR}/config.json" ]]; then
-  install_file "${SCRIPT_DIR}/.maw/config.json" "${MAW_DIR}/config.json"
+  install_file "${TEMPLATE_DIR}/.maw/config.json" "${MAW_DIR}/config.json"
   echo "Created ${MAW_DIR}/config.json"
 else
   echo "Skipped overwriting existing ${MAW_DIR}/config.json"

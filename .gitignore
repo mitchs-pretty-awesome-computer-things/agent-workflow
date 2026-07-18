@@ -1,0 +1,6 @@
+# Local development OpenCode / MAW files (not the template)
+/.opencode/
+/.maw/
+
+# Dependency directories
+node_modules/
