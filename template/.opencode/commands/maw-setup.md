@@ -44,8 +44,18 @@ Your job is to guide the user through setup and write the configuration files. T
    - Confirm reviewer count (default 1) and max review rounds (default 3).
 
 7. **Write config.**
-   - **Global scope:** write `~/.config/maw/config.json` and update `~/.config/opencode/opencode.json` with an `agent` block overriding the default model for each MAW agent.
-   - **Project scope:** write `.maw/config.json` and update `.opencode/opencode.json` with an `agent` block overriding the default model for each MAW agent.
+   - **Write MAW settings.**
+     - **Global scope:** write `~/.config/maw/config.json`.
+     - **Project scope:** write `.maw/config.json`.
+   - **Write OpenCode agent model overrides.**
+     - Discover the existing OpenCode config in this precedence order:
+       1. Project root `opencode.json`
+       2. `OPENCODE_CONFIG` environment variable (if set)
+       3. `~/.config/opencode/opencode.json`
+     - Merge the MAW `agent` block into whichever config is found.
+     - If no existing config is found, create one at the highest-precedence location appropriate for the scope:
+       - **Global scope:** create `~/.config/opencode/opencode.json`.
+       - **Project scope:** create `opencode.json` in the project root.
    - Do not overwrite unrelated fields in existing config files; merge them.
    - Because MAW agent files omit `model`, any agent not listed in the override block will use the user's default model.
 

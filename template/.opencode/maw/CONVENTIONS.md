@@ -13,7 +13,7 @@ This file is the single source of truth for shared conventions in Mitch's Agent 
 
 ## Workflow conventions
 
-- Read `.maw/config.json` at the start of every MAW invocation to get `label_prefix`, `overview_path`, `reviewer_count`, and `max_review_rounds`.
+- At the start of every MAW invocation, load the workflow configuration by invoking the `read-maw-config` skill. Use the resulting `label_prefix`, `overview_path`, `reviewer_count`, and `max_review_rounds`.
 - Use the configured `label_prefix` when creating or matching MAW labels (e.g. `<prefix>:epic` and `<prefix>:task`).
 - Prefer small, reviewable changes. If a task is too large, split it into multiple epics or tasks.
 - Exit the implement/review/fix/test loop early if review and tests pass.

@@ -5,6 +5,7 @@ permission:
   read: allow
   list: allow
   bash:
+    "*": ask
     "npm test*": allow
     "bun test*": allow
     "pnpm test*": allow
@@ -13,7 +14,6 @@ permission:
     "pytest*": allow
     "python -m pytest*": allow
     "go test*": allow
-    "*": ask
   glob: allow
 ---
 

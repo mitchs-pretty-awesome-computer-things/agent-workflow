@@ -13,8 +13,8 @@ YELLOW='\033[0;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-info() { echo -e "${BLUE}$1${NC}"; }
-dim() { echo -e "${DIM}$1${NC}"; }
+info() { echo -e "${BLUE}$1${NC}" >&2; }
+dim() { echo -e "${DIM}$1${NC}" >&2; }
 warn() { echo -e "${YELLOW}$1${NC}" >&2; }
 error() { echo -e "${RED}$1${NC}" >&2; }
 

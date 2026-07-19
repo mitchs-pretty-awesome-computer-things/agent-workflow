@@ -26,7 +26,7 @@ This is not a planning session. The goal is to clarify thinking, surface assumpt
 
 - If persisting as an overview doc, create `docs/project-context/<topic>.md` with the summary, key decisions, and open questions.
 - If persisting as a plan, create a GitHub issue labeled `maw:epic` and, if needed, `maw:task` sub-issues.
-- Use the `label_prefix` from `.maw/config.json` to build label names (default `maw`).
+- Load the MAW configuration by invoking the `read-maw-config` skill and use the configured `label_prefix` to build label names (default `maw`).
 - If you do not have permission to run `gh` or edit files, ask the user for permission or suggest running `/maw-setup` first.
 
 ## Do not

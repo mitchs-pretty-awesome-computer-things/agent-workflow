@@ -6,12 +6,12 @@ permission:
   edit: allow
   list: allow
   bash:
+    "*": ask
     "git *": allow
     "npm test*": allow
     "bun test*": allow
     "pnpm test*": allow
     "yarn test*": allow
-    "*": ask
   glob: allow
   grep: allow
 ---
@@ -39,6 +39,7 @@ Use when the orchestrator (or a human) gives you a task that is:
 ## Rules
 
 - Read `.opencode/maw/CONVENTIONS.md` at the start of every invocation and follow the shared MAW conventions.
+- Load the MAW configuration by invoking the `read-maw-config` skill at the start of every invocation.
 - Do not create GitHub epics, tasks, or PRs.
 - Do not delegate to other agents.
 - If the task turns out to be larger than expected, stop and tell the orchestrator (or human) to use `/orchestrate` instead.

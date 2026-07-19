@@ -6,13 +6,13 @@ permission:
   edit: allow
   list: allow
   bash:
+    "*": ask
     "git *": allow
     "gh *": allow
     "npm test*": allow
     "bun test*": allow
     "pnpm test*": allow
     "yarn test*": allow
-    "*": ask
   task: allow
   question: allow
   todowrite: allow
@@ -54,6 +54,6 @@ Your job is to turn a request into completed, tested, reviewed code. You never w
 ## Rules
 
 - Read `.opencode/maw/CONVENTIONS.md` at the start of every invocation and follow the shared MAW conventions.
-- Read `.maw/config.json` at the start of every invocation to get `label_prefix`, `overview_path`, `reviewer_count`, and `max_review_rounds`.
+- Load the MAW configuration by invoking the `read-maw-config` skill at the start of every invocation to get `label_prefix`, `overview_path`, `reviewer_count`, and `max_review_rounds`.
 - When delegating, give the sub-agent only the context it needs: the spec, relevant file paths, and the issue link.
 - Tell sub-agents to read `.opencode/maw/CONVENTIONS.md` if they have not already.

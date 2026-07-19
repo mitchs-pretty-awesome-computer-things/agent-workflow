@@ -26,7 +26,7 @@ Run a structured grilling interview to turn a vague idea into a concrete plan.
 
 After confirmation:
 
-1. Read `.maw/config.json` to get the `label_prefix`.
+1. Load the MAW configuration by invoking the `read-maw-config` skill to get the `label_prefix`.
 2. Create an epic issue on GitHub labeled `<prefix>:epic` with the plan summary in the body.
 3. Create sub-task issues labeled `<prefix>:task` linked to the epic.
    - Use the epic issue number in each task body (e.g., `Epic: #123`).
