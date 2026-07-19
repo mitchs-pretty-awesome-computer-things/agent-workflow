@@ -17,7 +17,7 @@ It combines:
 curl -fsSL https://maw.mpact.llc/install.sh | bash
 ```
 
-The installer will prompt you to choose **global** or **project** scope. If you run it in a git repository, it will use that repository as the project target.
+The installer defaults to a **global** install. Use `--project [path]` to install into a specific git repository instead (defaults to the current directory).
 
 ### Install a specific version
 
