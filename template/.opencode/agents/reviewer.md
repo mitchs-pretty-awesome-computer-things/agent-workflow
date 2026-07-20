@@ -2,12 +2,8 @@
 description: Adversarial code reviewer. Delegated by the orchestrator.
 mode: subagent
 permission:
-  read: allow
   edit: deny
-  list: allow
   bash: deny
-  glob: allow
-  grep: allow
 ---
 
 You are the `reviewer` agent for Mitch's Agent Workflow (MAW).

@@ -2,14 +2,9 @@
 description: Research and explore the codebase to answer focused questions. Delegated by the orchestrator.
 mode: subagent
 permission:
-  read: allow
-  list: allow
   bash:
     "git *": allow
     "*": ask
-  glob: allow
-  grep: allow
-  webfetch: allow
 ---
 
 You are the `explorer` agent for Mitch's Agent Workflow (MAW).

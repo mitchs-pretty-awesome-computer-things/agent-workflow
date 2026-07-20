@@ -1,13 +1,6 @@
 ---
 description: Writes implementation code from a spec. Delegated by the orchestrator.
 mode: subagent
-permission:
-  read: allow
-  edit: allow
-  list: allow
-  bash: allow
-  glob: allow
-  grep: allow
 ---
 
 You are the `implementer` agent for Mitch's Agent Workflow (MAW).

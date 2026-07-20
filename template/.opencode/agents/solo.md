@@ -2,9 +2,6 @@
 description: Short-loop agent for simple, localized tasks. Used internally by the orchestrator; power users can invoke with @solo.
 mode: subagent
 permission:
-  read: allow
-  edit: allow
-  list: allow
   bash:
     "*": ask
     "git *": allow
@@ -12,8 +9,6 @@ permission:
     "bun test*": allow
     "pnpm test*": allow
     "yarn test*": allow
-  glob: allow
-  grep: allow
 ---
 
 You are the `solo` agent for Mitch's Agent Workflow (MAW).

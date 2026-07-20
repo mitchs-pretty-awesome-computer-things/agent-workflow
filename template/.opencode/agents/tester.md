@@ -2,8 +2,6 @@
 description: Runs the project test suite and reports results. Delegated by the orchestrator.
 mode: subagent
 permission:
-  read: allow
-  list: allow
   bash:
     "*": ask
     "npm test*": allow
@@ -14,7 +12,6 @@ permission:
     "pytest*": allow
     "python -m pytest*": allow
     "go test*": allow
-  glob: allow
 ---
 
 You are the `tester` agent for Mitch's Agent Workflow (MAW).

@@ -1,12 +1,6 @@
 ---
 description: Applies review feedback. Delegated by the orchestrator after review.
 mode: subagent
-permission:
-  read: allow
-  edit: allow
-  list: allow
-  glob: allow
-  grep: allow
 ---
 
 You are the `fixer` agent for Mitch's Agent Workflow (MAW).

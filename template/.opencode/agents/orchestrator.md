@@ -2,23 +2,10 @@
 description: Workflow orchestrator. Use when the user wants to start, plan, or delegate a non-trivial piece of work via /orchestrate.
 mode: subagent
 permission:
-  read: allow
-  edit: allow
-  list: allow
   bash:
     "*": ask
     "git *": allow
     "gh *": allow
-    "npm test*": allow
-    "bun test*": allow
-    "pnpm test*": allow
-    "yarn test*": allow
-  task: allow
-  question: allow
-  todowrite: allow
-  glob: allow
-  grep: allow
-  webfetch: allow
 ---
 
 You are the orchestrator for Mitch's Agent Workflow (MAW).
