@@ -62,8 +62,8 @@ Your job is to guide the user through setup and write the configuration files. T
 8. **Create labels.**
    - For project scope, use the project repo discovered in step 3.
    - For global scope, ask which repo to create labels in (or skip if the user only wants defaults).
-   - Use `gh label create <prefix>:epic --color "#0366d6" --description "MAW epic"` if it does not exist.
-   - Use `gh label create <prefix>:task --color "#0e8a16" --description "MAW task"` if it does not exist.
+   - Use `gh label create <prefix>:epic --color "6f42c1" --description "MAW epic"` if it does not exist.
+   - Use `gh label create <prefix>:task --color "0366d6" --description "MAW task"` if it does not exist.
 
 9. **Report.**
    - Summarize the scope, repo, models, and settings that were configured.
