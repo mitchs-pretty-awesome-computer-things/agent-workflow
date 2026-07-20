@@ -1,12 +1,12 @@
 # Mitch's Agent Workflow (MAW)
 
-This repository contains a custom OpenCode workflow for individual and team-based development.
+MAW is a custom, opinionated, OpenCode workflow for individual and team-based development.
 
 It combines:
 
-- **Grilling sessions** (inspired by Matt Pocock's `/grill-me`) for exploring ideas and planning features.
+- **Grilling sessions** (inspired by [Matt Pocock's `/grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md)) for exploring ideas and planning features.
 - **GitHub issue tracking** with a minimal label convention (`maw:epic`, `maw:task`).
-- **Orchestrator + sub-agents** (inspired by Jarred Sumner's dynamic workflows) for complex work.
+- **Orchestrator + sub-agents** (inspired by [Jarred Sumner's dynamic workflows](https://bun.sh/blog/bun-in-rust)) for complex work.
 - **A short-loop agent (`solo`)** for small, localized tasks.
 
 ## Installation
@@ -25,13 +25,7 @@ The installer defaults to a **global** install. Use `--project [path]` to instal
 curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- --version v0.1.0
 ```
 
-### Global install
-
-```bash
-curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- --global
-```
-
-### Project install
+### Project-level install
 
 ```bash
 curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- --project /path/to/project
@@ -53,7 +47,7 @@ To symlink files instead of copying (development only):
 
 ### Next step
 
-After installation, open OpenCode in a project directory and run:
+After installation, start OpenCode in a project directory and run:
 
 ```
 /maw-setup
