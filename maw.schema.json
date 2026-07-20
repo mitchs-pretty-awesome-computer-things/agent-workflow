@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/mitchs-pretty-awesome-computer-things/agent-workflow/v0.1.0/maw.schema.json",
+  "title": "MAW Configuration",
+  "description": "Configuration for Mitch's Agent Workflow (MAW).",
+  "version": "0.1.0",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri",
+      "description": "URI of the MAW schema this config validates against."
+    },
+    "label_prefix": {
+      "type": "string",
+      "description": "Prefix used for GitHub labels created by the workflow.",
+      "default": "maw",
+      "minLength": 1
+    },
+    "overview_path": {
+      "type": "string",
+      "description": "Relative path where project overview/exploration documents are persisted.",
+      "default": "docs/project-context"
+    },
+    "reviewer_count": {
+      "type": "integer",
+      "description": "Number of adversarial reviewers used in the full orchestration loop.",
+      "default": 1,
+      "minimum": 1,
+      "maximum": 3
+    },
+    "max_review_rounds": {
+      "type": "integer",
+      "description": "Maximum number of review/fix/test rounds before asking the human for direction.",
+      "default": 3,
+      "minimum": 1,
+      "maximum": 10
+    }
+  },
+  "additionalProperties": false,
+  "required": ["label_prefix", "overview_path", "reviewer_count", "max_review_rounds"]
+}
