@@ -5,27 +5,7 @@ permission:
   read: allow
   edit: allow
   list: allow
-  bash:
-    "*": ask
-    "npm test*": allow
-    "bun test*": allow
-    "pnpm test*": allow
-    "yarn test*": allow
-    "cargo test*": allow
-    "pytest*": allow
-    "python -m pytest*": allow
-    "go test*": allow
-    "tsc*": allow
-    "npm run typecheck*": allow
-    "bun run typecheck*": allow
-    "pnpm run typecheck*": allow
-    "yarn typecheck*": allow
-    "eslint*": allow
-    "npm run lint*": allow
-    "bun run lint*": allow
-    "pnpm run lint*": allow
-    "yarn lint*": allow
-    "prettier --check*": allow
+  bash: allow
   glob: allow
   grep: allow
 ---
