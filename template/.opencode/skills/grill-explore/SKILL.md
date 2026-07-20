@@ -18,14 +18,14 @@ This is not a planning session. The goal is to clarify thinking, surface assumpt
    - What is known vs. unknown.
    - What success would look like.
 3. Summarize the discussion and ask if the user wants to:
-   - **Persist as overview** → write to `docs/project-context/<topic>.md` (path from `.maw/config.json`).
+    - **Persist as overview** → write to `<overview_path>/<topic>.md` (path from `read-maw-config`).
    - **Persist as plan** → run `/grill-plan` or create a GitHub epic + tasks.
    - **End here** → no persistence.
 
 ## Persistence rules
 
-- If persisting as an overview doc, create `docs/project-context/<topic>.md` with the summary, key decisions, and open questions.
-- If persisting as a plan, create a GitHub issue labeled `maw:epic` and, if needed, `maw:task` sub-issues.
+- If persisting as an overview doc, create `<overview_path>/<topic>.md` with the summary, key decisions, and open questions.
+- If persisting as a plan, create a GitHub issue labeled `<label_prefix>:epic` and, if needed, `<label_prefix>:task` sub-issues.
 - Load the MAW configuration by invoking the `read-maw-config` skill and use the configured `label_prefix` to build label names (default `maw`).
 - If you do not have permission to run `gh` or edit files, ask the user for permission or suggest running `/maw-setup` first.
 

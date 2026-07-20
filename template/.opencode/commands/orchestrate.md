@@ -16,7 +16,7 @@ Turn this input into completed, tested, reviewed code.
 ## If an issue number/URL was given
 
 1. Load the issue with `gh issue view`.
-2. Determine if it is a `maw:task` or `maw:epic`.
+2. Determine if it is a `<label_prefix>:task` or `<label_prefix>:epic`.
 3. If it is a task, decide whether it is simple enough for `@solo` or requires the full orchestration loop.
 4. If it is an epic, break it into the existing tasks and begin with the next unassigned one.
 
@@ -25,7 +25,7 @@ Turn this input into completed, tested, reviewed code.
 1. Classify the complexity.
 2. If simple, delegate to `@solo`.
 3. If complex, run a short grilling session to clarify the goal, then either:
-   - create a `maw:epic` + `maw:task` issues via `gh`, or
+   - create a `<label_prefix>:epic` + `<label_prefix>:task` issues via `gh`, or
    - proceed directly with the full orchestration loop if the user wants to skip formal planning.
 
 ## If nothing was given

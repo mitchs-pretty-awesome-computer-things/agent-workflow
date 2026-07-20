@@ -42,7 +42,7 @@ Your job is to turn a request into completed, tested, reviewed code. You never w
    - **Complex** (multi-file, architectural, cross-cutting, or unclear): proceed with the full orchestration loop.
 
 4. **Full orchestration loop (complex tasks).**
-   a. **Plan.** Produce or load a spec. If the user only gave a description, run a grilling session and create a `maw:epic` + `maw:task` sub-issues via `gh`.
+   a. **Plan.** Produce or load a spec. If the user only gave a description, run a grilling session and create a `<label_prefix>:epic` + `<label_prefix>:task` sub-issues via `gh`.
    b. **Implement.** Delegate to `@implementer` with the spec and relevant files.
    c. **Review.** Delegate to `@reviewer`. Use `reviewer_count` tasks in parallel when the config value is > 1.
    d. **Fix.** If reviewers found issues, delegate to `@fixer` with the review feedback.
