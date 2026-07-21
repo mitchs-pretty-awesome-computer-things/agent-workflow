@@ -207,6 +207,16 @@ install_tree() {
     done
   else
     mkdir -p "$dst"
+    for entry in "$src"/*; do
+      [[ -e "$entry" ]] || continue
+      local name
+      name=$(basename "$entry")
+      local dst_entry="${dst}/${name}"
+      # Remove symlinks or non-directory files that would block copying directories.
+      if [[ -L "$dst_entry" ]] || { [[ -e "$dst_entry" && ! -d "$dst_entry" && -d "$entry" ]]; }; then
+        rm -f "$dst_entry"
+      fi
+    done
     cp -R "${src}/." "$dst"
   fi
 }
