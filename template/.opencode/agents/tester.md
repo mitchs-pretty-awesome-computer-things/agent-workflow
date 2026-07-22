@@ -3,15 +3,13 @@ description: Runs the project test suite and reports results. Delegated by the o
 mode: subagent
 permission:
   bash:
-    "*": ask
-    "npm test*": allow
-    "bun test*": allow
-    "pnpm test*": allow
-    "yarn test*": allow
-    "cargo test*": allow
-    "pytest*": allow
-    "python -m pytest*": allow
-    "go test*": allow
+    "*": allow
+    "rm *": deny
+    "git reset*": deny
+    "git rebase*": deny
+    "git clean*": deny
+    "git push --force*": deny
+    "git push -f*": deny
 ---
 
 You are the `tester` agent for Mitch's Agent Workflow (MAW).
@@ -26,6 +24,7 @@ Your job is to run tests and report the results clearly.
 
 ## Rules
 
+- Load the active MAW conventions by invoking the `read-maw-conventions` skill at the start of every invocation and follow the shared MAW conventions.
 - Do not edit files.
 - Do not write new tests unless explicitly asked.
 - If tests are slow or require setup, note that in your report.

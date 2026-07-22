@@ -91,12 +91,15 @@ Workflow-specific configuration lives in `.maw/config.json` (project) or `~/.con
 
 ## Labels
 
-MAW uses only two labels by default:
+MAW uses these labels by default:
 
 - `maw:epic` — high-level feature or initiative.
 - `maw:task` — actionable piece of work that can be claimed and completed.
+- `maw:human-in-the-loop` — requires a human step (e.g., DB migration, third-party setup) before automation continues.
 
 Tasks are claimed by self-assigning in GitHub. Agents looking for work query open, unassigned `maw:task` issues.
+
+When an agent encounters a `maw:human-in-the-loop` issue, it stops and asks the human for the required action before proceeding.
 
 ## Claiming work
 

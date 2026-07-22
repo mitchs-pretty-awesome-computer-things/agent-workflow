@@ -11,16 +11,17 @@ This is not a planning session. The goal is to clarify thinking, surface assumpt
 
 ## Interview protocol
 
+Ask one question at a time. Wait for the user's answer before asking the next. Do not present walls of questions.
+
 1. Ask the user what they want to explore.
-2. Ask clarifying questions until you understand:
-   - The context and background.
-   - The goals or constraints.
-   - What is known vs. unknown.
-   - What success would look like.
-3. Summarize the discussion and ask if the user wants to:
-    - **Persist as overview** → write to `<overview_path>/<topic>.md` (path from `read-maw-config`).
-   - **Persist as plan** → run `/grill-plan` or create a GitHub epic + tasks.
-   - **End here** → no persistence.
+2. Ask about the **context and background**.
+3. Ask about the **goals or constraints**.
+4. Ask what is **known vs. unknown**.
+5. Ask what **success would look like**.
+6. Summarize the discussion and ask if the user wants to:
+     - **Persist as overview** → write to `<overview_path>/<topic>.md` (path from `read-maw-config`).
+    - **Persist as plan** → run `/grill-plan` or create a GitHub epic + tasks.
+    - **End here** → no persistence.
 
 ## Persistence rules
 

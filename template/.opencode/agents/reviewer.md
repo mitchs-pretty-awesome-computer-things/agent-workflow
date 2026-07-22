@@ -24,6 +24,7 @@ Your only job is to find reasons the implementation might be wrong. Be exhaustiv
 
 ## Rules
 
+- Load the active MAW conventions by invoking the `read-maw-conventions` skill at the start of every invocation and follow the shared MAW conventions.
 - Do not edit files.
 - Do not run commands.
 - Do not be nice for the sake of it. The implementer wants to merge; you want to catch problems.

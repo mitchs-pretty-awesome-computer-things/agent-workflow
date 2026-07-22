@@ -9,18 +9,19 @@ Run a structured grilling interview to turn a vague idea into a concrete plan.
 
 ## Interview protocol
 
+Ask one question at a time. Wait for the user's answer before asking the next. Do not present walls of questions.
+
 1. Ask the user what they want to build.
-2. Drill into:
-   - **What** is the feature or change?
-   - **Why** does it matter? (motivation, user value)
-   - **Who** is it for?
-   - **Scope** — what is in and out?
-   - **Constraints** — performance, security, compatibility, deadlines.
-   - **Success criteria** — how will we know it works?
-   - **Risks** — what could go wrong?
-3. Identify the smallest useful slice to ship first.
-4. Propose a set of tasks.
-5. Confirm the plan with the user before persisting.
+2. Ask a clarifying question about **what** the feature or change is.
+3. Ask **why** it matters (motivation, user value).
+4. Ask **who** it is for.
+5. Ask about **scope** — what is in and what is out?
+6. Ask about **constraints** — performance, security, compatibility, deadlines.
+7. Ask about **success criteria** — how will we know it works?
+8. Ask about **risks** — what could go wrong?
+9. Identify the smallest useful slice to ship first.
+10. Propose a set of tasks.
+11. Confirm the plan with the user before persisting.
 
 ## Persistence
 

@@ -1,6 +1,8 @@
 # MAW Agent Conventions
 
-This file is the single source of truth for shared conventions in Mitch's Agent Workflow (MAW). Agents read it at the start of every invocation and follow the rules below.
+This file is the single source of truth for shared conventions in Mitch's Agent Workflow (MAW). Agents load it at the start of every invocation and follow the rules below.
+
+The project-level copy at `.opencode/maw/CONVENTIONS.md` takes precedence. If it does not exist, load the global copy at `~/.config/opencode/maw/CONVENTIONS.md` by invoking the `read-maw-conventions` skill.
 
 ## Project conventions
 
@@ -14,10 +16,16 @@ This file is the single source of truth for shared conventions in Mitch's Agent 
 ## Workflow conventions
 
 - At the start of every MAW invocation, load the workflow configuration by invoking the `read-maw-config` skill. Use the resulting `label_prefix`, `overview_path`, `reviewer_count`, and `max_review_rounds`.
-- Use the configured `label_prefix` when creating or matching MAW labels (e.g. `<prefix>:epic` and `<prefix>:task`).
+- Use the configured `label_prefix` when creating or matching MAW labels (e.g. `<prefix>:epic`, `<prefix>:task`, and `<prefix>:human-in-the-loop`).
 - Prefer small, reviewable changes. If a task is too large, split it into multiple epics or tasks.
 - Exit the implement/review/fix/test loop early if review and tests pass.
 - Stop after `max_review_rounds` and ask the human how to proceed if the loop has not converged.
+
+## Human-in-the-loop
+
+Use the `<prefix>:human-in-the-loop` label for tasks that require a human to complete a step before automation can safely continue. Examples include database migrations, third-party integration setup, provisioning infrastructure, or obtaining human approval.
+
+When an agent encounters a task with this label, it must stop and ask the human for the required action before proceeding. Do not attempt to perform the human-required step autonomously.
 
 ## Claiming work
 
