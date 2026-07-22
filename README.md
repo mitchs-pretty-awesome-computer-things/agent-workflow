@@ -22,7 +22,7 @@ The installer defaults to a **global** install. Use `--project [path]` to instal
 ### Install a specific version
 
 ```bash
-curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- --version v0.2.0
+curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- --version v0.3.0
 ```
 
 ### Project-level install
