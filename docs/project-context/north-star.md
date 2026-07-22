@@ -50,7 +50,7 @@ MAW adapts this into OpenCode:
 | `/orchestrate #123` | Run workflow on an existing issue |
 | `/orchestrate <description>` | Start workflow-managed work from a description |
 | `/orchestrate` | Start a grilling session, then workflow-managed work |
-| `/maw-setup` | Configure/reconfigure MAW (global or project scope) |
+| `/maw-setup` | Configure/reconfigure MAW (global or project scope); detects existing config and asks which parts to redo |
 | `@solo <task>` | Advanced: run a small task in one context |
 
 ### Labels

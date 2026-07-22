@@ -68,7 +68,7 @@ Agent-facing shared conventions live in `.opencode/maw/CONVENTIONS.md`. Humans c
 | `/orchestrate #123` | Run the workflow on an existing issue |
 | `/orchestrate <description>` | Start workflow-managed work from a description |
 | `/orchestrate` | Start a grilling session and then workflow-managed work |
-| `/maw-setup` | Configure or reconfigure MAW |
+| `/maw-setup` | Configure or reconfigure MAW; detects existing config and asks which parts to redo |
 | `@solo <task>` | (Advanced) run a small task in a single context |
 
 ## Configuration
