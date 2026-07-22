@@ -59,6 +59,7 @@ Use a minimal label set:
 
 - `<prefix>:epic` — high-level initiative.
 - `<prefix>:task` — actionable work item.
+- `<prefix>:human-in-the-loop` — requires a human step before automation can continue.
 
 Default prefix is `maw`. The prefix is configurable during setup.
 
@@ -97,7 +98,7 @@ The full loop exits early if review and tests pass. It stops after `max_review_r
 - The installer uses explicit flags and defaults to a **global** install (`--global`).
 - Use `--project [path]` to install into a git repository (defaults to the current directory).
 - By default it fetches a versioned release from GitHub and installs the workflow files from the release's `template/` directory.
-- `--version <tag>` installs a specific MAW version (e.g. `--version v0.1.0`); it defaults to `latest`.
+- `--version <tag>` installs a specific MAW version (e.g. `--version v0.2.0`); it defaults to `latest`.
 - `--local` copies from the `template/` directory next to the script instead of fetching from GitHub; this is intended for MAW development.
 - `--symlink` is only allowed with `--local` and symlinks the workflow files instead of copying.
 - It never modifies the project's `README.md` or other documentation files.
