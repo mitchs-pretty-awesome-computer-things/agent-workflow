@@ -2,8 +2,6 @@
 
 This file is the single source of truth for shared conventions in Mitch's Agent Workflow (MAW). Agents load it at the start of every invocation and follow the rules below.
 
-The project-level copy at `.opencode/maw/CONVENTIONS.md` takes precedence. If it does not exist, load the global copy at `~/.config/opencode/maw/CONVENTIONS.md` by invoking the `read-maw-conventions` skill.
-
 ## Project conventions
 
 - Keep changes minimal and focused.

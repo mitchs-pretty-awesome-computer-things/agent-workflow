@@ -5,8 +5,6 @@ agent: orchestrator
 
 You are running the `/maw-setup` command for Mitch's Agent Workflow (MAW).
 
-Load the active MAW conventions by invoking the `read-maw-conventions` skill and follow the shared MAW conventions.
-
 Your job is to guide the user through setup and write the configuration files. This command always runs from an OpenCode project session, but it can configure either global defaults or the current project.
 
 ## Steps

@@ -4,10 +4,10 @@ mode: subagent
 permission:
   bash:
     "*": allow
-    "rm *": deny
-    "git reset*": deny
-    "git rebase*": deny
-    "git clean*": deny
+    "rm *": ask
+    "git reset*": ask
+    "git rebase*": ask
+    "git clean*": ask
     "git push --force*": deny
     "git push -f*": deny
 ---
