@@ -2,9 +2,15 @@
 description: Research and explore the codebase to answer focused questions. Delegated by the orchestrator.
 mode: subagent
 permission:
+  edit: deny
   bash:
-    "git *": allow
-    "*": ask
+    "*": allow
+    "rm *": ask
+    "git reset*": deny
+    "git rebase*": deny
+    "git clean*": deny
+    "git push --force*": deny
+    "git push -f*": deny
 ---
 
 You are the `explorer` agent for Mitch's Agent Workflow (MAW).

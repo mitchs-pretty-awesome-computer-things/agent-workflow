@@ -16,9 +16,10 @@ Turn this input into completed, tested, reviewed code.
 ## If an issue number/URL was given
 
 1. Load the issue with `gh issue view`.
-2. Determine if it is a `<label_prefix>:task` or `<label_prefix>:epic`.
-3. If it is a task, decide whether it is simple enough for `@solo` or requires the full orchestration loop.
-4. If it is an epic, break it into the existing tasks and begin with the next unassigned one.
+2. If the issue has the `<label_prefix>:human-in-the-loop` label, stop and ask the human to complete the required human step before proceeding.
+3. Determine if it is a `<label_prefix>:task` or `<label_prefix>:epic`.
+4. If it is a task, decide whether it is simple enough for `@solo` or requires the full orchestration loop.
+5. If it is an epic, break it into the existing tasks and begin with the next unassigned one.
 
 ## If a description was given
 
@@ -35,7 +36,8 @@ Turn this input into completed, tested, reviewed code.
 
 ## Rules
 
-- Read `.opencode/maw/CONVENTIONS.md` and follow the shared MAW conventions.
+- Load the active MAW conventions by invoking the `read-maw-conventions` skill and follow the shared MAW conventions.
 - Load the MAW configuration by invoking the `read-maw-config` skill to get `label_prefix`, `overview_path`, `reviewer_count`, and `max_review_rounds`.
+- Stop and ask the human when you encounter a `<label_prefix>:human-in-the-loop` label.
 - Exit early if review and tests pass.
 - Stop after `max_review_rounds` and ask the human if the loop has not converged.

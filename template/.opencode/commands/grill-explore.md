@@ -1,6 +1,5 @@
 ---
 description: Discuss an idea or direction without committing to a plan. Optionally persist the conclusion as a project-context doc or a GitHub epic + tasks.
-agent: orchestrator
 ---
 
 You are running the `/grill-explore` command for Mitch's Agent Workflow (MAW).
@@ -15,7 +14,6 @@ Load the `grill-explore` skill and follow its interview protocol. Use the discus
 
 ## Rules
 
-- Read `.opencode/maw/CONVENTIONS.md` and follow the shared MAW conventions.
 - Load the MAW configuration by invoking the `read-maw-config` skill.
 - Do not delegate to other agents during the grilling session.
 - Do not create GitHub issues or docs without explicit confirmation.

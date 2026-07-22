@@ -3,12 +3,13 @@ description: Short-loop agent for simple, localized tasks. Used internally by th
 mode: subagent
 permission:
   bash:
-    "*": ask
-    "git *": allow
-    "npm test*": allow
-    "bun test*": allow
-    "pnpm test*": allow
-    "yarn test*": allow
+    "*": allow
+    "rm *": ask
+    "git reset*": ask
+    "git rebase*": ask
+    "git clean*": ask
+    "git push --force*": deny
+    "git push -f*": deny
 ---
 
 You are the `solo` agent for Mitch's Agent Workflow (MAW).
@@ -33,7 +34,7 @@ Use when the orchestrator (or a human) gives you a task that is:
 
 ## Rules
 
-- Read `.opencode/maw/CONVENTIONS.md` at the start of every invocation and follow the shared MAW conventions.
+- Load the active MAW conventions by invoking the `read-maw-conventions` skill at the start of every invocation and follow the shared MAW conventions.
 - Load the MAW configuration by invoking the `read-maw-config` skill at the start of every invocation.
 - Do not create GitHub epics, tasks, or PRs.
 - Do not delegate to other agents.

@@ -22,7 +22,7 @@ The installer defaults to a **global** install. Use `--project [path]` to instal
 ### Install a specific version
 
 ```bash
-curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- --version v0.1.0
+curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- --version v0.2.0
 ```
 
 ### Project-level install
@@ -91,12 +91,15 @@ Workflow-specific configuration lives in `.maw/config.json` (project) or `~/.con
 
 ## Labels
 
-MAW uses only two labels by default:
+MAW uses these labels by default:
 
 - `maw:epic` — high-level feature or initiative.
 - `maw:task` — actionable piece of work that can be claimed and completed.
+- `maw:human-in-the-loop` — requires a human step (e.g., DB migration, third-party setup) before automation continues.
 
 Tasks are claimed by self-assigning in GitHub. Agents looking for work query open, unassigned `maw:task` issues.
+
+When an agent encounters a `maw:human-in-the-loop` issue, it stops and asks the human for the required action before proceeding.
 
 ## Claiming work
 
