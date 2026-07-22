@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/mitchs-pretty-awesome-computer-things/agent-workflow/v0.2.0/maw.schema.json",
+  "$schema": "https://raw.githubusercontent.com/mitchs-pretty-awesome-computer-things/agent-workflow/v0.3.0/maw.schema.json",
   "label_prefix": "maw",
   "overview_path": "docs/project-context",
   "reviewer_count": 1,
