@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/mitchs-pretty-awesome-computer-things/agent-workflow/v0.3.0/maw.schema.json",
+  "$id": "https://raw.githubusercontent.com/mitchs-pretty-awesome-computer-things/agent-workflow/v0.4.0/maw.schema.json",
   "title": "MAW Configuration",
   "description": "Configuration for Mitch's Agent Workflow (MAW).",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "type": "object",
   "properties": {
     "$schema": {
