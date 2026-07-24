@@ -21,7 +21,7 @@ Run an open-ended grilling interview to turn a vague idea into a concrete plan, 
 
 ## Ordering and blockers
 
-The task sequence must make dependencies obvious. If a task depends on another, order it after its blocker and record the relationship using the blocker task's exact title.
+The task sequence must make dependencies obvious. If a task depends on another, order it after its blocker and record the relationship using the blocker task's 1-based index in the ordered list (e.g., `blocked_by: [1, 3]`).
 
 If the ordering or blocker graph is unclear, the plan is not concrete enough — go back to `/grilling` until the dependencies are clear. Do not ask the user to figure out the order for you.
 
