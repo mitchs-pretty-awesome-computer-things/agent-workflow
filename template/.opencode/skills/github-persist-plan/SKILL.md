@@ -15,7 +15,7 @@ The following must already be established in the conversation:
 - A list of tasks in dependency order. Each task has:
   - title
   - body
-  - optional `blocked_by` list of earlier task issue numbers/URLs.
+  - optional `blocked_by` list of earlier task **titles** (exact match against the titles of tasks that must be created first).
 
 Tasks must be ordered so that every blocker is created before the task that depends on it.
 
@@ -27,13 +27,16 @@ Tasks must be ordered so that every blocker is created before the task that depe
    gh issue create --title "<epic title>" --body "<epic body>" --label "<prefix>:epic"
    ```
    Capture the epic issue number from the returned URL.
-3. Create each task in order. For each task:
-   ```bash
-   gh issue create --title "<task title>" --body "<task body>" --label "<prefix>:task" --parent <epic_number> [--blocked-by <blocker_numbers>]
-   ```
-   - `<blocker_numbers>` is a comma-separated list of issue numbers (e.g. `3,5`).
-   - Capture the new task number from the returned URL.
-4. If a call fails because the repo does not support a feature, retry with only the unsupported flag removed and add that relationship as text instead:
+3. Keep a mapping of task title → issue number as tasks are created.
+4. Create each task in order. For each task:
+   - Resolve `blocked_by` titles to blocker issue numbers using the title → issue number mapping. If a referenced title has not been created yet, the task order is wrong — stop and return to `/grilling` until the dependencies are clear.
+   - Create the task:
+     ```bash
+     gh issue create --title "<task title>" --body "<task body>" --label "<prefix>:task" --parent <epic_number> [--blocked-by <blocker_numbers>]
+     ```
+     - `<blocker_numbers>` is a comma-separated list of issue numbers (e.g. `3,5`).
+   - Capture the new task number from the returned URL and add it to the title → issue number mapping.
+5. If a call fails because the repo does not support a feature, retry with only the unsupported flag removed and add that relationship as text instead:
    - `--parent` unavailable: create the task without `--parent`, then append it to the epic body as a task list item (e.g., by editing the epic with `gh issue edit <epic_number> --body "<updated body>"`):
      ```markdown
      - [ ] #<task_number>
@@ -42,7 +45,7 @@ Tasks must be ordered so that every blocker is created before the task that depe
      ```markdown
      Blocked by: #<blocker_number>[, #<blocker_number>]
      ```
-5. Report the epic and task issue numbers back to the user.
+6. Report the epic and task issue numbers back to the user.
 
 ## Do not
 
