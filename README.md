@@ -4,7 +4,7 @@ MAW is a custom, opinionated, OpenCode workflow for individual and team-based de
 
 It combines:
 
-- **Grilling sessions** (inspired by [Matt Pocock's `/grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md)) for exploring ideas and planning features.
+- **Grilling sessions** (inspired by [Matt Pocock's `/grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md)) for exploring ideas and planning features. `/grill-plan` and `/grill-explore` use an internal `/grilling` skill, and `/grill-plan` persists the confirmed plan via an internal `/github-persist-plan` skill.
 - **GitHub issue tracking** with a minimal label convention (`maw:epic`, `maw:task`).
 - **Orchestrator + sub-agents** (inspired by [Jarred Sumner's dynamic workflows](https://bun.sh/blog/bun-in-rust)) for complex work.
 - **A short-loop agent (`solo`)** for small, localized tasks.
