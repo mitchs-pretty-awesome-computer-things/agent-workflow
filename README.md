@@ -1,6 +1,6 @@
 # Mitch's Agent Workflow (MAW)
 
-MAW is a custom, opinionated, OpenCode workflow for individual and team-based development.
+MAW is a custom, opinionated, OpenCode workflow for individual and team-based development. It keeps the human in the loop rather than running autonomously.
 
 It combines:
 
