@@ -17,16 +17,14 @@ Load the MAW configuration from the most appropriate source and return the resol
 - If only a global config exists, use it as-is.
 - If only a project config exists, use it as-is.
 - If both exist, merge them. **Project values override global values** for any overlapping keys.
-- Ignore any extra keys that are not part of the MAW configuration; only `label_prefix`, `overview_path`, `reviewer_count`, and `max_review_rounds` are used.
+- Ignore any extra keys that are not part of the MAW configuration; only `label_prefix` and `overview_path` are used.
 - If neither exists, report the default values:
   - `label_prefix`: `maw`
   - `overview_path`: `docs/project-context`
-  - `reviewer_count`: 1
-  - `max_review_rounds`: 3
 
 ## Usage
 
-When another agent needs MAW settings, invoke this skill and use the returned configuration for `label_prefix`, `overview_path`, `reviewer_count`, and `max_review_rounds`.
+When another agent needs MAW settings, invoke this skill and use the returned configuration for `label_prefix` and `overview_path`.
 
 ## Do not
 

@@ -246,6 +246,19 @@ info "Installing MAW (${SCOPE}) into ${INSTALL_DIR}"
 
 install_tree "${TEMPLATE_DIR}/.opencode" "$OPENCODE_DIR"
 
+# Prune files from pre-thin-orchestrator installs so updates do not leave orphans.
+# Skip when a parent is a symlink (symlink installs point directly at the template,
+# so there is nothing to prune and rm would follow the link into the template).
+if [[ ! -L "$OPENCODE_DIR/agents" ]]; then
+  rm -f "$OPENCODE_DIR/agents/solo.md" "$OPENCODE_DIR/agents/fixer.md" "$OPENCODE_DIR/agents/tester.md" "$OPENCODE_DIR/agents/explorer.md"
+fi
+if [[ ! -L "$OPENCODE_DIR/commands" ]]; then
+  rm -f "$OPENCODE_DIR/commands/grill-plan.md" "$OPENCODE_DIR/commands/grill-explore.md"
+fi
+if [[ ! -L "$OPENCODE_DIR/skills" ]]; then
+  rm -rf "$OPENCODE_DIR/skills/grill-plan" "$OPENCODE_DIR/skills/grill-explore"
+fi
+
 if [[ ! -f "${MAW_DIR}/config.json" ]]; then
   install_file "${TEMPLATE_DIR}/.maw/config.json" "${MAW_DIR}/config.json"
   dim "Created ${MAW_DIR}/config.json"
