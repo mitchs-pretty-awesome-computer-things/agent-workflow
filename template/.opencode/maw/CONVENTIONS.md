@@ -4,20 +4,36 @@ This file is the single source of truth for shared conventions in Mitch's Agent 
 
 ## Project conventions
 
-- Keep changes minimal and focused.
-- Follow existing code style and patterns.
-- Add tests when the change affects behavior.
-- Do not run `git commit`, `git push`, `git reset`, `git rebase`, or create PRs unless explicitly asked.
+- Add or update tests only when the change affects behavior and existing tests do not cover it. Do not add tests for trivial changes.
+- Do all work on a side branch following Conventional Branch naming (`<type>/<kebab-case-slug>`, e.g. `feat/add-auth`, `fix/123-token-expiry`). Never work directly on `main`/`master`.
+- Do not run `git commit`, `git push`, or create PRs unless the human explicitly asks. Leave changes uncommitted for human review. When you do commit, follow Conventional Commits (`<type>(<optional scope>): <description>`, e.g. `feat(auth): add login`).
 - Ask before destructive bash commands.
 - Update this file if the conventions change.
 
+## Communication conventions
+
+Before you write any direct response, apply ASD-STE100 Simplified Technical English:
+- Use active voice only.
+- Keep sentences short (maximum 20 words for instructions, 25 words for descriptions).
+- Express only one idea per sentence.
+- Use simple, direct words (e.g. use "use" instead of "utilize", "make sure" instead of "ensure").
+- Do not use jargon, metaphors, slang, or conversational filler.
+- Use the same word consistently for the same object or action.
+
+## Code style conventions
+
+- Keep changes minimal and focused.
+- Follow existing code style and patterns.
+- Write self-explanatory code. Use clear names that show intent for variables, functions, and files.
+- Avoid comments. Prefer self-explanatory code over explanation.
+- Add a comment only when the code is complex and rewriting cannot make it clear. Keep it short and explain why, not what.
+- Prefer small functions and explicit logic over clever shortcuts.
+
 ## Workflow conventions
 
-- At the start of every MAW invocation, load the workflow configuration by invoking the `read-maw-config` skill. Use the resulting `label_prefix`, `overview_path`, `reviewer_count`, and `max_review_rounds`.
+- At the start of every MAW invocation, load the workflow configuration by invoking the `read-maw-config` skill. Use the resulting `label_prefix` and `overview_path`.
 - Use the configured `label_prefix` when creating or matching MAW labels (e.g. `<prefix>:epic`, `<prefix>:task`, and `<prefix>:human-in-the-loop`).
 - Prefer small, reviewable changes. If a task is too large, split it into multiple epics or tasks.
-- Exit the implement/review/fix/test loop early if review and tests pass.
-- Stop after `max_review_rounds` and ask the human how to proceed if the loop has not converged.
 
 ## Human-in-the-loop
 

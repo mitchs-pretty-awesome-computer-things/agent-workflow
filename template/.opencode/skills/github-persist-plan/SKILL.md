@@ -1,6 +1,6 @@
 ---
 name: github-persist-plan
-description: Persist a confirmed plan to GitHub as an epic, sub-tasks, and blocker relationships. Used by /grill-plan and /grill-explore.
+description: Persist a confirmed plan to GitHub as an epic, sub-tasks, and blocker relationships. Used by Plan mode after grilling.
 ---
 
 # github-persist-plan
@@ -27,7 +27,7 @@ Before creating any issue, validate the entire blocker graph:
 - Every `blocked_by` reference is an integer >= 1 and less than the task's own position.
 - Every blocker appears earlier in the list than the task that references it.
 
-If any check fails, do **not** create the epic or any tasks. Return to `/grilling` until the plan is correct. No side effects should be left behind.
+If any check fails, do **not** create the epic or any tasks. Return to grilling until the plan is correct. No side effects should be left behind.
 
 ## Steps
 
@@ -61,5 +61,5 @@ If any check fails, do **not** create the epic or any tasks. Return to `/grillin
 ## Do not
 
 - Create issues without the user having already confirmed the plan.
-- Create tasks out of dependency order. If the order is unclear, return to `/grilling` until it is clear.
+- Create tasks out of dependency order. If the order is unclear, return to grilling until it is clear.
 - Assign anyone by default.

@@ -38,24 +38,23 @@ Your job is to guide the user through setup and write the configuration files. T
 5. **Ask what to (re)configure.**
    - If no existing configuration is found, proceed with the full setup.
    - If existing configuration is found, ask the user which sections to **keep**, **update**, or **reset to defaults**:
-     - **Workflow settings** (`label_prefix`, `overview_path`, `reviewer_count`, `max_review_rounds`)
+     - **Workflow settings** (`label_prefix`, `overview_path`)
      - **Agent model overrides** (per-agent `provider/model-id` entries in OpenCode config). For this section, the reset option is **use default model** (remove overrides so agents fall back to the user's default model).
      - **GitHub labels** (`<prefix>:epic`, `<prefix>:task`, `<prefix>:human-in-the-loop`)
    - Only proceed with the sections the user selects. Skip anything they choose to keep.
    - When updating workflow settings or model overrides, use the existing values as the defaults.
-   - When resetting to defaults, use the MAW default values (`label_prefix: maw`, `overview_path: docs/project-context`, `reviewer_count: 1`, `max_review_rounds: 3`) for workflow settings.
+   - When resetting to defaults, use the MAW default values (`label_prefix: maw`, `overview_path: docs/project-context`) for workflow settings.
 
 6. **List available models** (only if configuring agent model overrides).
    - Run `opencode models`.
    - If that fails, read the existing `opencode.json` provider config and fetch `https://models.dev/model-schema.json` as a fallback.
 
 7. **Recommend models per agent** (only if configuring agent model overrides).
-   - For each agent (`orchestrator`, `implementer`, `reviewer`, `fixer`, `tester`, `explorer`, `solo`), analyze the model list and recommend a `provider/model-id`.
+   - For each agent (`orchestrator`, `implementer`, `reviewer`), analyze the model list and recommend a `provider/model-id`.
    - Use these heuristics:
      - `orchestrator`: high context window, reasoning capability, strong overall performance.
-     - `implementer`/`reviewer`/`fixer`: strong coding performance, tool calling.
-     - `tester`/`explorer`: low cost, adequate context, tool calling.
-     - `solo`: strong coding performance, tool calling.
+     - `implementer`/`reviewer`: strong coding performance, tool calling.
+     - Remove model overrides for deleted agents (`fixer`, `tester`, `explorer`, `solo`) if present, so stale entries do not linger.
    - If an override already exists for an agent, use it as the recommendation instead of the heuristic default.
    - Present the recommendations with brief explanations.
 

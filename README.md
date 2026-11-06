@@ -1,13 +1,12 @@
 # Mitch's Agent Workflow (MAW)
 
-MAW is a custom, opinionated, OpenCode workflow for individual and team-based development.
+MAW is a custom, opinionated, OpenCode workflow for individual and team-based development. It keeps the human in the loop rather than running autonomously.
 
 It combines:
 
-- **Grilling sessions** (inspired by [Matt Pocock's `/grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md)) for exploring ideas and planning features. `/grill-plan` and `/grill-explore` use an internal `/grilling` skill, and `/grill-plan` persists the confirmed plan via an internal `/github-persist-plan` skill.
+- **Grilling sessions** (inspired by [Matt Pocock's `/grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md)) for exploring ideas. `/grill` uses an internal `grilling` skill that outputs a task breakdown; confirmed plans persist via `github-persist-plan`.
 - **GitHub issue tracking** with a minimal label convention (`maw:epic`, `maw:task`).
-- **Orchestrator + sub-agents** (inspired by [Jarred Sumner's dynamic workflows](https://bun.sh/blog/bun-in-rust)) for complex work.
-- **A short-loop agent (`solo`)** for small, localized tasks.
+- **Thin orchestrator + implementer** for work: the human plans (native Plan mode), then `/orchestrate` routes to `@implementer` with the human in the loop. Optional single-pass `@reviewer`.
 
 ## Installation
 
@@ -22,7 +21,7 @@ The installer defaults to a **global** install. Use `--project [path]` to instal
 ### Install a specific version
 
 ```bash
-curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- --version v0.4.0
+curl -fsSL https://maw.mpact.llc/install.sh | bash -s -- --version v0.5.0
 ```
 
 ### Project-level install
@@ -63,13 +62,11 @@ Agent-facing shared conventions live in `.opencode/maw/CONVENTIONS.md`. Humans c
 
 | Entry point | Purpose |
 |-------------|---------|
-| `/grill-explore` | Discuss an idea or direction; optionally persist as a doc or epic |
-| `/grill-plan` | Plan a feature; persist as a GitHub epic + tasks |
-| `/orchestrate #123` | Run the workflow on an existing issue |
+| `/grill` | Grill an idea; optionally persist as a doc or GitHub epic + tasks |
+| `/orchestrate #123` | Run the workflow on an existing issue (side branch + implementer) |
 | `/orchestrate <description>` | Start workflow-managed work from a description |
 | `/orchestrate` | Start a grilling session and then workflow-managed work |
 | `/maw-setup` | Configure or reconfigure MAW; detects existing config and asks which parts to redo |
-| `@solo <task>` | (Advanced) run a small task in a single context |
 
 ## Configuration
 
@@ -78,16 +75,12 @@ Workflow-specific configuration lives in `.maw/config.json` (project) or `~/.con
 ```json
 {
   "label_prefix": "maw",
-  "overview_path": "docs/project-context",
-  "reviewer_count": 1,
-  "max_review_rounds": 3
+  "overview_path": "docs/project-context"
 }
 ```
 
 - `label_prefix` — prefix for GitHub labels created by MAW.
-- `overview_path` — where project-context documents from `/grill-explore` are saved.
-- `reviewer_count` — number of adversarial reviewers in the full orchestration loop.
-- `max_review_rounds` — maximum review/fix/test rounds before asking the human.
+- `overview_path` — where project-context documents from `/grill` are saved.
 
 ## Labels
 
@@ -115,22 +108,19 @@ Then run `/orchestrate #<number>` to start the workflow. If you are not working 
 
 | Agent | Role |
 |-------|------|
-| `orchestrator` | Decides short vs. full loop, delegates, owns context |
-| `solo` | Short loop for simple tasks |
-| `implementer` | Writes code in the full loop |
-| `reviewer` | Adversarial review |
-| `fixer` | Applies review feedback |
-| `tester` | Runs tests |
-| `explorer` | Researches code and docs |
+| `orchestrator` | Thin human↔subagent router; ensures side branch, delegates, owns context. Never edits directly |
+| `implementer` | Writes code from a spec; leaves changes uncommitted for human review |
+| `reviewer` | Opt-in single-pass adversarial review (human must request it) |
 
 ## Git workflow
 
-- MAW does **not** commit, push, or create PRs unless explicitly asked.
+- MAW does all work on side branches following Conventional Branch naming (`<type>/<kebab-slug>`). It never works directly on `main`/`master`.
+- MAW does **not** commit, push, or create PRs unless explicitly asked. Changes are left uncommitted for human review. Commits follow Conventional Commits.
 - A task is considered complete when its associated PR is reviewed and merged, and the issue is closed.
 
-## Restarting OpenCode
+## Reloading OpenCode
 
-OpenCode loads config at startup and does not hot-reload. After running `/maw-setup` or changing agent files, restart OpenCode.
+OpenCode watches config files and reloads agents, commands, skills, and plugins after a save. If changes do not appear, run `/reload`.
 
 ## Developing MAW
 
