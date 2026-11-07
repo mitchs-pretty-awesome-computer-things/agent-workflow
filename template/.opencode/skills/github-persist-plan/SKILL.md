@@ -11,7 +11,7 @@ Persist the confirmed plan in the current conversation to GitHub as an epic with
 
 The following must already be established in the conversation:
 
-- Epic title and body (a concise plan summary).
+- Epic title and body.
 - A numbered list of tasks in dependency order. Each task has:
   - title
   - body
@@ -19,13 +19,21 @@ The following must already be established in the conversation:
 
 Tasks must be ordered so that every blocker is created before the task that depends on it.
 
+## Body content
+
+Follow the grilling breakdown format. A fresh agent must be able to act from a task plus its epic.
+
+Use file paths; add code snippets only when the exact content matters. Do not list work as out of scope.
+
 ## Validation
 
-Before creating any issue, validate the entire blocker graph:
+Before creating any issue, validate the blocker graph and body sufficiency:
 
 - Every task has a unique title.
 - Every `blocked_by` reference is an integer >= 1 and less than the task's own position.
 - Every blocker appears earlier in the list than the task that references it.
+- Every task body states its goal, the files or directories it touches, and its acceptance criteria.
+- No task body defers required detail to the epic with phrases like "see epic for details" or leaves it as `TBD`.
 
 If any check fails, do **not** create the epic or any tasks. Return to grilling until the plan is correct. No side effects should be left behind.
 
