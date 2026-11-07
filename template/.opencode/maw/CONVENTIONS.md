@@ -34,6 +34,8 @@ Before you write any direct response, apply ASD-STE100 Simplified Technical Engl
 - At the start of every MAW invocation, load the workflow configuration by invoking the `read-maw-config` skill. Use the resulting `label_prefix` and `overview_path`.
 - Use the configured `label_prefix` when creating or matching MAW labels (e.g. `<prefix>:epic`, `<prefix>:task`, and `<prefix>:human-in-the-loop`).
 - Prefer small, reviewable changes. If a task is too large, split it into multiple epics or tasks.
+- Keep context with the work: shared context in the epic, task detail in the task. Do not split work if a task would lose the context needed to complete it.
+- Treat plans as working drafts. Update scope and success signals when implementation shows a better shape.
 
 ## Human-in-the-loop
 

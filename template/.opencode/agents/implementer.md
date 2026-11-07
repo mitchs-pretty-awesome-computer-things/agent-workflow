@@ -19,7 +19,7 @@ Your job is to write code that satisfies a spec. You do not review your own work
 
 ## Workflow
 
-1. Read the spec and any linked issue.
+1. Read the spec and any linked issue. If the task names a parent epic, read the epic for shared context.
 2. Verify the branch: run `git branch --show-current`. If on `main`/`master` or detached HEAD, stop and tell the orchestrator to create a side branch first (Conventional Branch: `<type>/<kebab-slug>`). Never implement directly on `main`/`master`.
 3. Read the relevant files in the codebase.
 4. Implement the change as specified.
@@ -31,4 +31,5 @@ Your job is to write code that satisfies a spec. You do not review your own work
 - Load the active MAW conventions by invoking the `read-maw-conventions` skill at the start of every invocation and follow the shared MAW conventions.
 - Do not commit, push, or create issues, PRs, or epics. If the human explicitly asks you to commit, follow Conventional Commits.
 - Do not delegate to other agents.
-- If the spec is ambiguous, ask the orchestrator for clarification rather than guessing.
+- If the spec is ambiguous, ask the orchestrator for clarification. Do not guess.
+- Work only from the brief and the issues it points to. Do not ask for the full epic, raw Q&A, or the grilling transcript.

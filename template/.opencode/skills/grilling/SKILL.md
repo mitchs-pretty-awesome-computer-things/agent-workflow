@@ -27,17 +27,25 @@ If a fact can be found by exploring the codebase or the environment, look it up 
 
 ## Task breakdown format
 
-When the topic is heading toward implementation, steer the conversation so the outcome is easy to split into GitHub issues:
+When the topic heads toward implementation, shape the outcome so it can become GitHub issues. For the epic, capture:
 
 - goal and motivation
-- scope boundaries (what is explicitly out of scope)
+- current scope, as a working assumption
 - constraints and risks
-- success criteria
-- a sequenced set of tasks small enough to complete in a single focused session or PR
+- success signals, as a current hypothesis
+- a sequenced set of tasks small enough for one focused session or PR
 
-Tasks must be independently testable and reviewable. If a task depends on another, note the dependency so it can be recorded as `blocked_by` (1-based index into the ordered task list) by `github-persist-plan`.
+For each task, capture its goal and why it exists, the files and directories it touches with a note on relevance, constraints, and acceptance criteria. Keep shared context in the epic and task detail in the task. Do not split work if a task would lose the context needed to finish it.
+
+Treat scope and success signals as working hypotheses. Do not list work as out of scope. Record a shift when it happens.
+
+Tasks must be independently testable and reviewable. Note dependencies so `github-persist-plan` can record them as `blocked_by` (1-based index into the ordered list).
 
 If the ordering or blocker graph is unclear, keep grilling until the dependencies are clear. Do not ask the user to figure out the order for you — propose an order and confirm it.
+
+## Task-scoped pass
+
+Before each delegation, the orchestrator runs a light pass on one task. Confirm only what its body leaves open: goal, files and relevance, constraints, acceptance. Ask in one or two small batches and stop once an implementer can start.
 
 ## Wrap-up
 
