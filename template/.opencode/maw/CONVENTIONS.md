@@ -12,13 +12,13 @@ This file is the single source of truth for shared conventions in Mitch's Agent 
 
 ## Communication conventions
 
-Before you write any direct response, apply ASD-STE100 Simplified Technical English:
-- Use active voice only.
-- Keep sentences short (maximum 20 words for instructions, 25 words for descriptions).
-- Express only one idea per sentence.
-- Use simple, direct words (e.g. use "use" instead of "utilize", "make sure" instead of "ensure").
-- Do not use jargon, metaphors, slang, or conversational filler.
-- Use the same word consistently for the same object or action.
+Write for the reader: plain words, active voice, consistent terms, no filler.
+
+Preserve nuance: keep assumptions, uncertainty, tradeoffs, conditions, and exceptions attached to what they modify, and use more words when fewer would change the meaning.
+
+Ask when it matters: when ambiguity or a missing fact changes the outcome, ask and include your recommendation. Never guess silently or hide an open question to stay brief.
+
+Keep persistent artifacts (issues, epics, docs) concise and skimmable; direct conversation can be more conversational.
 
 ## Code style conventions
 

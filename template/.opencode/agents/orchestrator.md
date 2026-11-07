@@ -6,10 +6,10 @@ permission:
   bash:
     "*": allow
     "rm *": ask
+    "git *": allow
     "git reset*": ask
     "git rebase*": ask
     "git clean*": ask
-    "git commit*": ask
     "git push --force*": deny
     "git push -f*": deny
 ---
