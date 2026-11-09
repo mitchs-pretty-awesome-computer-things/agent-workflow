@@ -1,4 +1,8 @@
-# Mitch's Agent Workflow (MAW)
+<p align="center">
+  <img width="150" height="150" alt="MAW Icon" src="https://github.com/user-attachments/assets/7bee4ade-d684-4b44-9348-7a9e0dea3b58" />
+</p>
+
+<h1 align="center">Mitch's Agent Workflow (MAW)</h1>
 
 MAW is a custom, opinionated, OpenCode workflow for individual and team-based development. It keeps the human in the loop rather than running autonomously.
 
