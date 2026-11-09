@@ -48,8 +48,9 @@ Your job is to route work between the human and subagents. You never write imple
 5. **Delegate to `@implementer`.**
    - Build a focused brief with:
      - the task body verbatim, including any clarification written back in step 4
-     - a short epic summary (2-3 lines) for shared intent
-   - Do not paste the full epic body, the grilling transcript, raw Q&A, or earlier briefs. The implementer can read the epic if the brief points to it.
+     - a short epic summary (2-3 lines) for shared intent, only when the task has a parent epic
+   - If the task has no parent epic, the task body is the whole brief.
+   - Do not paste the full epic body, the grilling transcript, raw Q&A, or earlier briefs. The implementer can read the epic if the brief points to it and one exists.
    - The implementer leaves changes uncommitted for human review. Never ask it to commit or push unless the human explicitly asked.
    - After it reports, summarize for the human: branch, files changed, `git diff --stat`, tests run, open questions.
 

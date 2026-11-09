@@ -32,14 +32,14 @@ Keep persistent artifacts (issues, epics, docs) concise and skimmable; direct co
 ## Workflow conventions
 
 - At the start of every MAW invocation, load the workflow configuration by invoking the `read-maw-config` skill. Use the resulting `label_prefix` and `overview_path`.
-- Use the configured `label_prefix` when creating or matching MAW labels (e.g. `<prefix>:epic`, `<prefix>:task`, and `<prefix>:human-in-the-loop`).
+- Use the configured `label_prefix` when creating or matching MAW labels (e.g. `<label_prefix>:epic`, `<label_prefix>:task`, and `<label_prefix>:human-in-the-loop`).
 - Prefer small, reviewable changes. If a task is too large, split it into multiple epics or tasks.
-- Keep context with the work: shared context in the epic, task detail in the task. Do not split work if a task would lose the context needed to complete it.
+- Keep context with the work: shared context in the epic when one exists, task detail in the task. A standalone task holds all its context because there is no epic. Do not split work if a task would lose the context needed to complete it.
 - Treat plans as working drafts. Update scope and success signals when implementation shows a better shape.
 
 ## Human-in-the-loop
 
-Use the `<prefix>:human-in-the-loop` label for tasks that require a human to complete a step before automation can safely continue. Examples include database migrations, third-party integration setup, provisioning infrastructure, or obtaining human approval.
+Use the `<label_prefix>:human-in-the-loop` label for tasks that require a human to complete a step before automation can safely continue. Examples include database migrations, third-party integration setup, provisioning infrastructure, or obtaining human approval.
 
 When an agent encounters a task with this label, it must stop and ask the human for the required action before proceeding. Do not attempt to perform the human-required step autonomously.
 
@@ -53,4 +53,4 @@ gh issue edit <number> --add-assignee @me
 
 Then run `/orchestrate #<number>`.
 
-Agents looking for work query open, unassigned `<prefix>:task` issues.
+Agents looking for work query open, unassigned `<label_prefix>:task` issues.

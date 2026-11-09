@@ -4,7 +4,7 @@ MAW is a custom, opinionated, OpenCode workflow for individual and team-based de
 
 It combines:
 
-- **Grilling sessions** (inspired by [Matt Pocock's `/grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md)) for exploring ideas. `/grill` uses an internal `grilling` skill that outputs a task breakdown; confirmed plans persist via `github-persist-plan`.
+- **Grilling sessions** (inspired by [Matt Pocock's `/grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md)) for exploring ideas. `/grill` uses an internal `grilling` skill that outputs a task breakdown (an epic with tasks, or a single task); confirmed plans persist via `github-persist-plan`.
 - **GitHub issue tracking** with a minimal label convention (`maw:epic`, `maw:task`).
 - **Thin orchestrator + implementer** for work: the human plans (native Plan mode), then `/orchestrate` routes to `@implementer` with the human in the loop. Optional single-pass `@reviewer`.
 
@@ -62,7 +62,7 @@ Agent-facing shared conventions live in `.opencode/maw/CONVENTIONS.md`. Humans c
 
 | Entry point | Purpose |
 |-------------|---------|
-| `/grill` | Grill an idea; optionally persist as a doc or GitHub epic + tasks |
+| `/grill` | Grill an idea; optionally persist as a doc, a GitHub epic + tasks, or a single task |
 | `/orchestrate #123` | Run the workflow on an existing issue (side branch + implementer) |
 | `/orchestrate <description>` | Start workflow-managed work from a description |
 | `/orchestrate` | Start a grilling session and then workflow-managed work |
