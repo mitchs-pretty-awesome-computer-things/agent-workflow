@@ -32,7 +32,7 @@ Your job is to guide the user through setup and write the configuration files. T
      4. `~/.config/opencode/opencode.json`
      5. `~/.config/opencode/opencode.jsonc`
    - If an OpenCode config is found, extract any existing MAW `agent` overrides and any existing `permission.external_directory` entries.
-   - List existing labels in the target repo with `gh label list` and note which MAW labels (`<prefix>:epic`, `<prefix>:task`, `<prefix>:human-in-the-loop`) are already present, using the existing `label_prefix` if one is configured.
+   - List existing labels in the target repo with `gh label list` and note which MAW labels (`<label_prefix>:epic`, `<label_prefix>:task`, `<label_prefix>:human-in-the-loop`) are already present, using the existing `label_prefix` if one is configured.
    - Present a concise summary of what is already configured and what is missing.
 
 5. **Ask what to (re)configure.**
@@ -40,7 +40,7 @@ Your job is to guide the user through setup and write the configuration files. T
    - If existing configuration is found, ask the user which sections to **keep**, **update**, or **reset to defaults**:
      - **Workflow settings** (`label_prefix`, `overview_path`)
      - **Agent model overrides** (per-agent `provider/model-id` entries in OpenCode config). For this section, the reset option is **use default model** (remove overrides so agents fall back to the user's default model).
-     - **GitHub labels** (`<prefix>:epic`, `<prefix>:task`, `<prefix>:human-in-the-loop`)
+     - **GitHub labels** (`<label_prefix>:epic`, `<label_prefix>:task`, `<label_prefix>:human-in-the-loop`)
    - Only proceed with the sections the user selects. Skip anything they choose to keep.
    - When updating workflow settings or model overrides, use the existing values as the defaults.
    - When resetting to defaults, use the MAW default values (`label_prefix: maw`, `overview_path: docs/project-context`) for workflow settings.
@@ -81,9 +81,9 @@ Your job is to guide the user through setup and write the configuration files. T
 10. **Create labels** (only if the GitHub labels section was selected).
     - For project scope, use the project repo discovered in step 3.
     - For global scope, ask which repo to create labels in (or skip if the user only wants defaults).
-    - Use `gh label create <prefix>:epic --color "6f42c1" --description "MAW epic"` if it does not exist.
-    - Use `gh label create <prefix>:task --color "0366d6" --description "MAW task"` if it does not exist.
-    - Use `gh label create <prefix>:human-in-the-loop --color "d93f0b" --description "Requires human action before automation can continue"` if it does not exist.
+    - Use `gh label create <label_prefix>:epic --color "6f42c1" --description "MAW epic"` if it does not exist.
+    - Use `gh label create <label_prefix>:task --color "0366d6" --description "MAW task"` if it does not exist.
+    - Use `gh label create <label_prefix>:human-in-the-loop --color "d93f0b" --description "Requires human action before automation can continue"` if it does not exist.
 
 11. **Report.**
     - Summarize the scope, repo, and which sections were kept, updated, reset to defaults, or set to use the default model.

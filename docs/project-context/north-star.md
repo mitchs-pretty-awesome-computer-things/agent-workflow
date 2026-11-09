@@ -8,8 +8,8 @@ OpenCode is already good at the basic `plan -> implement` flow. MAW is not tryin
 
 - Before building, the human and the agent need a shared understanding of what to build and why.
 - Work should be tracked so team members can claim, review, and close tasks.
-- Complex changes benefit from an orchestrator that plans, delegates, reviews, and tests — rather than a single agent trying to hold everything in one context.
-- Simple changes should not pay the cost of a full orchestration loop.
+- Complex changes benefit from an orchestrator that plans, delegates, and keeps context — rather than a single agent trying to hold everything in one context.
+- Simple changes should stay lightweight: one focused implementer delegation, not an autonomous multi-agent loop.
 - Sometimes a plan-mode session is not enough to capture large-scale features; the plan needs to be persisted, broken into tasks, and carried across multiple sessions or team members.
 
 MAW exists to provide that structure inside OpenCode.
@@ -22,22 +22,21 @@ The [`grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productiv
 
 Adopted pattern:
 
-- **`grill-explore`** — free-form discussion of an idea, problem, or direction. The conclusion is only persisted if the human asks for it, as either a project-context doc or a GitHub epic + tasks.
-- **`grill-plan`** — structured feature planning that produces a concrete plan and persists it as a GitHub epic with labeled sub-tasks.
+- **`/grill`** — a relentless interview that reaches shared understanding before any work begins. The conclusion is only persisted if the human asks for it, as either a project-context doc or a GitHub plan: an epic with labeled tasks, or a single labeled task when the work is self-contained.
 
 ### Jarred Sumner's Bun dynamic workflows
 
 Jarred Sumner's [Bun rewrite post](https://bun.sh/blog/bun-in-rust) describes a workflow with:
 
 - A powerful orchestrator that holds the main context and decisions.
-- Specialized sub-agents (implementer, reviewer, fixer) that receive only the context they need.
+- Specialized sub-agents that receive only the context they need.
 - Adversarial review and bounded review/fix/test loops.
 
 MAW adapts this into OpenCode:
 
-- **`orchestrator`** — owns the plan, decides short vs. full loop, delegates to sub-agents.
-- **`solo`** — short loop for simple, localized tasks.
-- **`implementer`**, **`reviewer`**, **`fixer`**, **`tester`**, **`explorer`** — role-specific sub-agents for the full loop.
+- **`orchestrator`** — thin human↔subagent router: owns the plan, ensures a side branch, keeps context, and delegates. Never edits directly.
+- **`implementer`** — writes code from a focused brief and leaves changes uncommitted for human review.
+- **`reviewer`** — opt-in single-pass adversarial review, run only when the human asks for it.
 
 ## Guiding decisions
 
@@ -45,23 +44,21 @@ MAW adapts this into OpenCode:
 
 | Command / Skill | Purpose |
 |-----------------|---------|
-| `/grill-explore` | Explore/discuss; optionally persist as doc or epic |
-| `/grill-plan` | Plan a feature; persist as epic + tasks |
-| `/orchestrate #123` | Run workflow on an existing issue |
+| `/grill` | Grill an idea; optionally persist as a doc, a GitHub epic + tasks, or a single task |
+| `/orchestrate #123` | Run the workflow on an existing issue (side branch + implementer) |
 | `/orchestrate <description>` | Start workflow-managed work from a description |
 | `/orchestrate` | Start a grilling session, then workflow-managed work |
 | `/maw-setup` | Configure/reconfigure MAW (global or project scope); detects existing config and asks which parts to redo |
-| `@solo <task>` | Advanced: run a small task in one context |
 
 ### Labels
 
 Use a minimal label set:
 
-- `<prefix>:epic` — high-level initiative.
-- `<prefix>:task` — actionable work item.
-- `<prefix>:human-in-the-loop` — requires a human step before automation can continue.
+- `<label_prefix>:epic` — high-level initiative.
+- `<label_prefix>:task` — actionable work item.
+- `<label_prefix>:human-in-the-loop` — requires a human step before automation can continue.
 
-Default prefix is `maw`. The prefix is configurable during setup.
+Default `label_prefix` is `maw`. It is configurable during setup.
 
 Task lifecycle is driven by assignment, not additional labels. A task is claimed by self-assigning in GitHub (`gh issue edit #123 --add-assignee @me`), then `/orchestrate #123` starts the workflow.
 
@@ -72,9 +69,7 @@ Workflow-specific config lives in `.maw/config.json` (project) or `~/.config/maw
 ```json
 {
   "label_prefix": "maw",
-  "overview_path": "docs/project-context",
-  "reviewer_count": 1,
-  "max_review_rounds": 3
+  "overview_path": "docs/project-context"
 }
 ```
 
@@ -86,19 +81,20 @@ Agent templates intentionally omit the `model` field. In OpenCode, an agent with
 
 ### Short vs. full loop
 
-There are no explicit `/quick` or `/fix` commands. The orchestrator classifies each request:
+There are no explicit `/quick` or `/fix` commands, and no standalone shortcut path. The orchestrator classifies each request and always runs the same loop:
 
-- Simple and localized → delegate to `solo`.
-- Complex, multi-file, or unclear → run the full loop: plan → implement → review → fix → test.
+- Ensure a side branch, then run a light task check: confirm the goal, files and relevance, constraints, and acceptance criteria with the human, writing answers back into the task body.
+- Delegate to `@implementer` with a focused brief.
+- At a natural ending point, offer an optional single-pass `@reviewer`. It runs only when the human asks, and returns actionable items without auto-looping.
 
-The full loop exits early if review and tests pass. It stops after `max_review_rounds` and asks the human if it has not converged.
+Every round is human-driven. Simple, localized work stays in one implementer delegation until the human is satisfied; complex or unclear work may take several rounds. The orchestrator never commits, pushes, or runs an autonomous review/fix/test loop.
 
 ### Installer behavior
 
 - The installer uses explicit flags and defaults to a **global** install (`--global`).
 - Use `--project [path]` to install into a git repository (defaults to the current directory).
 - By default it fetches a versioned release from GitHub and installs the workflow files from the release's `template/` directory.
-- `--version <tag>` installs a specific MAW version (e.g. `--version v0.5.2`); it defaults to `latest`.
+- `--version <tag>` installs a specific MAW version (e.g. `--version v0.6.0`); it defaults to `latest`.
 - `--local` copies from the `template/` directory next to the script instead of fetching from GitHub; this is intended for MAW development.
 - `--symlink` is only allowed with `--local` and symlinks the workflow files instead of copying.
 - It never modifies the project's `README.md` or other documentation files.
